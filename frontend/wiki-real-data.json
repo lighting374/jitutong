@@ -1,0 +1,38 @@
+[
+  {
+    "name": "A楼",
+    "buildingId": 1,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "学术科研",
+    "mainImage": "/static/images/buildings/A.jpg",
+    "richContent": "<h2>安楼（A楼）</h2><p>安楼（A楼）是嘉定校区的公共教学楼，主要承担本科基础课程教学任务，也是学生常用自习场所。它位于图书馆附近，西侧设开放式木地板连廊通往二楼，临湖视野开阔，环境安静，方便师生课后自习或休息。</p>",
+    "structuredInfo": {
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "教学楼",
+      "facilities": ["教室", "办公室", "自习区", "连廊"]
+    },
+    "tags": ["教学楼", "自习", "公共教学", "A楼"]
+  },
+  {
+    "name": "嘉定校区图书馆",
+    "buildingId": 10,
+    "address": "嘉定校区",
+    "latitude": 31.286737,
+    "longitude": 121.211948,
+    "category": "学术科研",
+    "mainImage": "/static/images/buildings/默认.jpg",
+    "richContent": "<h2>嘉定校区图书馆</h2><p>嘉定校区图书馆是同济大学重要的学术资源中心，提供丰富的藏书和现代化的学习环境。</p><h3>设施</h3><ul><li>自习室300个座位</li><li>电子阅览室</li><li>研讨室10间</li><li>24小时自习区</li></ul><h3>特色服务</h3><p>图书馆提供文献检索、馆际互借、学科服务等专业支持。</p>",
+    "structuredInfo": {
+      "openTime": "周一至周日 7:00-22:00",
+      "averageCost": "免费",
+      "phone": "021-69585000",
+      "website": "https://lib.tongji.edu.cn",
+      "capacity": "1000座位",
+      "facilities": ["自习室", "电子阅览室", "研讨室", "24小时自习区"]
+    },
+    "tags": ["图书馆", "学习", "自习", "学术"]
+  }
+]

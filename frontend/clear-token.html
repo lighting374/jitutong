@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>清除 Token 工具</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 500px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .info {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .info p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        .success {
+            color: #4caf50;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .error {
+            color: #f44336;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 清除 Token 工具</h1>
+        
+        <div class="info">
+            <p><strong>当前 Token 状态：</strong></p>
+            <p id="tokenStatus">检查中...</p>
+        </div>
+
+        <button onclick="clearAllTokens()">🗑️ 清除所有 Token</button>
+        <button onclick="checkToken()">🔍 检查 Token</button>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // 检查 Token
+        function checkToken() {
+            const tokens = {
+                'user_token': localStorage.getItem('user_token'),
+                'token': localStorage.getItem('token'),
+                'user_info': localStorage.getItem('user_info'),
+                'admin_token': localStorage.getItem('admin_token'),
+                'wiki_admin_token': localStorage.getItem('wiki_admin_token')
+            };
+
+            let html = '<div class="info" style="text-align: left;">';
+            let hasToken = false;
+
+            for (const [key, value] of Object.entries(tokens)) {
+                if (value) {
+                    hasToken = true;
+                    html += `<p><strong>${key}:</strong> ${value.substring(0, 50)}...</p>`;
+                    
+                    // 尝试解码 JWT
+                    if (value.includes('.')) {
+                        try {
+                            const parts = value.split('.');
+                            const payload = JSON.parse(atob(parts[1]));
+                            html += `<p style="margin-left: 20px; color: #666;">
+                                用户ID: ${payload.sub || 'N/A'}<br>
+                                过期时间: ${new Date(payload.exp * 1000).toLocaleString('zh-CN')}<br>
+                                ${Date.now() > payload.exp * 1000 ? '<span style="color: red;">⚠️ 已过期</span>' : '<span style="color: green;">✅ 有效</span>'}
+                            </p>`;
+                        } catch (e) {
+                            html += `<p style="margin-left: 20px; color: red;">⚠️ 无法解析</p>`;
+                        }
+                    }
+                }
+            }
+
+            if (!hasToken) {
+                html += '<p style="color: green;">✅ 没有找到任何 Token</p>';
+            }
+
+            html += '</div>';
+            document.getElementById('result').innerHTML = html;
+        }
+
+        // 清除所有 Token
+        function clearAllTokens() {
+            if (!confirm('确定要清除所有 Token 吗？清除后需要重新登录。')) {
+                return;
+            }
+
+            // 1. 清除 localStorage
+            const keysToRemove = [
+                'user_token',
+                'token',
+                'user_info',
+                'user_token_expires_at',
+                'admin_token',
+                'wiki_admin_token'
+            ];
+
+            let cleared = [];
+            keysToRemove.forEach(key => {
+                if (localStorage.getItem(key)) {
+                    localStorage.removeItem(key);
+                    cleared.push(key);
+                }
+            });
+
+            // 2. 清除 sessionStorage
+            sessionStorage.clear();
+
+            // 3. 清除所有 Cookie
+            document.cookie.split(";").forEach(function(c) { 
+                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+            });
+
+            // 4. 清除 IndexedDB（如果有）
+            if (window.indexedDB) {
+                indexedDB.databases().then(dbs => {
+                    dbs.forEach(db => {
+                        if (db.name) indexedDB.deleteDatabase(db.name);
+                    });
+                }).catch(() => {});
+            }
+
+            // 显示结果
+            let resultHtml = '<div class="success">';
+            resultHtml += '<p>✅ Token 清除成功！</p>';
+            if (cleared.length > 0) {
+                resultHtml += '<p>已清除：' + cleared.join(', ') + '</p>';
+            }
+            resultHtml += '<p>3 秒后将跳转到登录页面...</p>';
+            resultHtml += '</div>';
+
+            document.getElementById('result').innerHTML = resultHtml;
+
+            // 3秒后跳转
+            setTimeout(() => {
+                window.location.href = 'http://localhost:5173/user/login';
+            }, 3000);
+        }
+
+        // 页面加载时检查
+        window.onload = function() {
+            const userToken = localStorage.getItem('user_token');
+            const tokenStatus = document.getElementById('tokenStatus');
+            
+            if (userToken) {
+                try {
+                    const parts = userToken.split('.');
+                    const payload = JSON.parse(atob(parts[1]));
+                    const isExpired = Date.now() > payload.exp * 1000;
+                    
+                    tokenStatus.innerHTML = `
+                        <span style="color: ${isExpired ? 'red' : 'orange'};">
+                            ${isExpired ? '⚠️ Token 已过期' : '⚠️ 发现旧 Token'}
+                        </span><br>
+                        <small>用户ID: ${payload.sub}, 过期时间: ${new Date(payload.exp * 1000).toLocaleString('zh-CN')}</small>
+                    `;
+                } catch (e) {
+                    tokenStatus.innerHTML = '<span style="color: red;">⚠️ Token 格式错误</span>';
+                }
+            } else {
+                tokenStatus.innerHTML = '<span style="color: green;">✅ 没有 Token</span>';
+            }
+        };
+    </script>
+</body>
+</html>

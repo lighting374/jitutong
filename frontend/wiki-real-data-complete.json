@@ -1,0 +1,380 @@
+[
+  {
+    "name": "A楼",
+    "buildingId": 1,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "学术科研",
+    "mainImage": "/static/images/buildings/A.jpg",
+    "richContent": "<h2>安楼（A楼）</h2><p>安楼（A楼）是嘉定校区的公共教学楼，主要承担本科基础课程教学任务，也是学生常用自习场所。它位于图书馆附近，西侧设开放式木地板连廊通往二楼，临湖视野开阔，环境安静，方便师生课后自习或休息。</p>",
+    "structuredInfo": {
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "教学楼",
+      "facilities": ["教室", "办公室", "自习区", "连廊"]
+    },
+    "tags": ["教学楼", "自习", "公共教学", "A楼"]
+  },
+  {
+    "name": "B楼",
+    "buildingId": 2,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "学术科研",
+    "mainImage": "/static/images/buildings/B.jpg",
+    "richContent": "<h2>博楼（B楼）</h2><p>博楼（B楼）是研究生课程主教学楼，部分本科课程及学术讲座也在此开展。它与安楼（A楼）、诚楼（C楼）通过二楼连廊相连，雨天无需绕行；一楼设自动售货机和覆盖A、B、C楼的失物招领台，处于教学核心区，便于师生往来。</p>",
+    "structuredInfo": {
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "教学楼",
+      "facilities": ["教室", "办公室", "自动售货机", "失物招领台", "连廊"]
+    },
+    "tags": ["教学楼", "研究生", "学术讲座", "B楼"]
+  },
+  {
+    "name": "C楼",
+    "buildingId": 3,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "学术科研",
+    "mainImage": "/static/images/buildings/C.jpg",
+    "richContent": "<h2>诚楼（C楼）</h2><p>诚楼（C楼）是本科课程集中的主教学楼，正对校园篮球场，地理位置显眼。部分教室经智能化改造，配备投影和互动屏幕；与博楼（B楼）间有小路，但雨天易积水，建议走楼内连廊穿行。</p>",
+    "structuredInfo": {
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "教学楼",
+      "facilities": ["教室", "智能化设备", "投影", "互动屏幕", "连廊"]
+    },
+    "tags": ["教学楼", "本科", "智能化", "C楼"]
+  },
+  {
+    "name": "D楼",
+    "buildingId": 4,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "体育设施",
+    "mainImage": "/static/images/buildings/D.jpg",
+    "richContent": "<h2>德楼（D楼）</h2><p>德楼（D楼）是体育教学与活动中心，内设舞蹈教室、羽毛球场地、乒乓球台，体育课（如舞蹈、球类）及体测室内项目（肺活量、坐位体前屈）常安排于此，也是雨天体育课备用场地和社团训练场所。</p>",
+    "structuredInfo": {
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "体育中心",
+      "facilities": ["舞蹈教室", "羽毛球场", "乒乓球台", "体测室"]
+    },
+    "tags": ["体育", "运动", "体测", "D楼"]
+  },
+  {
+    "name": "F楼",
+    "buildingId": 6,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "综合服务",
+    "mainImage": "/static/images/buildings/默认.jpg",
+    "richContent": "<h2>复楼（F楼）</h2><p>复楼（F楼）是校区综合服务中心，集行政、生活、教学功能于一体。一楼北侧为综合服务大厅（办理一卡通、成绩单打印等），设自助设备和农行ATM；另有票务亭、快递点，二楼为机房；校车乘坐点在后门外，便利往返其他校区。</p>",
+    "structuredInfo": {
+      "openTime": "8:00-17:00",
+      "phone": "",
+      "type": "综合服务楼",
+      "facilities": ["服务大厅", "ATM", "快递点", "机房", "校车站"]
+    },
+    "tags": ["服务", "行政", "快递", "校车", "F楼"]
+  },
+  {
+    "name": "G楼",
+    "buildingId": 7,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "学术科研",
+    "mainImage": "/static/images/buildings/默认.jpg",
+    "richContent": "<h2>广楼（G楼）</h2><p>广楼（G楼）主要承担公共课与学生活动功能，开设思政课、通识选修课，也是学生会、社团会议常用场所。它与复楼（F楼）、华楼（H楼）通过连廊通行，一楼设自动售货机，位于综合服务区域附近。</p>",
+    "structuredInfo": {
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "教学楼",
+      "facilities": ["教室", "会议室", "自动售货机", "连廊"]
+    },
+    "tags": ["教学楼", "公共课", "学生活动", "G楼"]
+  },
+  {
+    "name": "H楼",
+    "buildingId": 8,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "学术科研",
+    "mainImage": "/static/images/buildings/默认.jpg",
+    "richContent": "<h2>华楼（H楼）</h2><p>华楼（H楼）以实验教学为主，靠近生活区（尤其是朋园7号楼），学生出宿舍即可到达。它主要承担物理、电子、机械等实验课程，部分实验室需提前预约，方便学生参与实验学习。</p>",
+    "structuredInfo": {
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "实验楼",
+      "facilities": ["实验室", "物理实验室", "电子实验室", "机械实验室"]
+    },
+    "tags": ["实验楼", "实验教学", "H楼"]
+  },
+  {
+    "name": "嘉定校区图书馆",
+    "buildingId": 10,
+    "address": "嘉定校区",
+    "latitude": 31.286737,
+    "longitude": 121.211948,
+    "category": "学术科研",
+    "mainImage": "/static/images/buildings/图书馆材料学院.jpg",
+    "richContent": "<h2>嘉定校区图书馆</h2><p>嘉定校区图书馆是同济大学重要的学术资源中心，提供丰富的藏书和现代化的学习环境。</p><h3>设施</h3><ul><li>自习室300个座位</li><li>电子阅览室</li><li>研讨室10间</li><li>24小时自习区</li></ul><h3>特色服务</h3><p>图书馆提供文献检索、馆际互借、学科服务等专业支持。</p>",
+    "structuredInfo": {
+      "openTime": "周一至周日 7:00-22:00",
+      "averageCost": "免费",
+      "phone": "021-69585000",
+      "website": "https://lib.tongji.edu.cn",
+      "capacity": "1000座位",
+      "facilities": ["自习室", "电子阅览室", "研讨室", "24小时自习区"]
+    },
+    "tags": ["图书馆", "学习", "自习", "学术"]
+  },
+  {
+    "name": "仰望星空",
+    "buildingId": 11,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "地标建筑",
+    "mainImage": "/static/images/buildings/默认.jpg",
+    "richContent": "<h2>仰望星空</h2><p>"仰望星空"是同济大学嘉定校区的标志性建筑，因2007年温家宝总理视察同济时的演讲及后续发表的《仰望星空》诗得名，于2008年揭幕，造型独特被师生亲切称为"马桶楼"；其设计寓意"天圆地方"，中间刻有同济校徽三人划船图案及1907年建校年份，周围环绕105颗星星呼应建校105周年，兼具纪念意义与文化内涵。</p><p>该建筑兼具观赏性与功能性，四楼环形区域设有羽毛球场、乒乓球桌供学生日常运动或社团训练，是校园体育活动与休闲的重要场所；它位于校区教学核心区附近，是师生及访客喜爱的打卡点，周边紧邻教学楼群，方便师生课后前往活动或驻足观览。</p>",
+    "structuredInfo": {
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "地标建筑",
+      "facilities": ["羽毛球场", "乒乓球桌", "观景台"]
+    },
+    "tags": ["地标", "打卡", "体育", "仰望星空"]
+  },
+  {
+    "name": "智信馆",
+    "buildingId": 12,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "学术科研",
+    "mainImage": "/static/images/buildings/智信馆.jpg",
+    "richContent": "<h2>智信馆（电子与信息工程学院）</h2><p>智信馆是电子与信息工程学院的教学科研楼宇，承担该学院课程教学、科研实验及办公任务，设专业实验室和办公区域，位于校区学科集中区，支持师生开展电子信息相关学术活动。</p>",
+    "structuredInfo": {
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "学院楼",
+      "facilities": ["教室", "实验室", "办公室"]
+    },
+    "tags": ["学院", "电子", "信息工程", "智信馆"]
+  },
+  {
+    "name": "德才馆",
+    "buildingId": 13,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "学术科研",
+    "mainImage": "/static/images/buildings/材料科学与工程学院.jpg",
+    "richContent": "<h2>德才馆（材料科学与工程学院）</h2><p>德才馆是材料科学与工程学院的教学科研场所，承担材料相关课程教学、科研实验及办公任务，设专业实验室和办公区域，位于校区科研与教学结合区，助力学院学科发展。</p>",
+    "structuredInfo": {
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "学院楼",
+      "facilities": ["教室", "实验室", "办公室"]
+    },
+    "tags": ["学院", "材料", "科研", "德才馆"]
+  },
+  {
+    "name": "春禾苑",
+    "buildingId": 20,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "餐饮服务",
+    "mainImage": "/static/images/buildings/大食堂.jpg",
+    "richContent": "<h2>春禾苑</h2><p>春禾苑位于教学区与朋园生活区交界处，靠近朋园公寓群及华楼实验楼宇，是师生高频就餐的核心食堂之一，设有盖浇饭、麻辣烫、面食等多样风味窗口。</p>",
+    "structuredInfo": {
+      "openTime": "6:30-20:00",
+      "averageCost": "15-25元",
+      "phone": "",
+      "type": "食堂",
+      "facilities": ["盖浇饭", "麻辣烫", "面食", "多样窗口"]
+    },
+    "tags": ["食堂", "餐饮", "春禾苑"]
+  },
+  {
+    "name": "秋谷苑",
+    "buildingId": 21,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "餐饮服务",
+    "mainImage": "/static/images/buildings/默认.jpg",
+    "richContent": "<h2>秋谷苑</h2><p>秋谷苑坐落于友园生活区附近，紧邻友园1-6号楼，以特色套餐和精致点心为亮点，招牌菜品包括糖醋排骨套餐、虾仁滑蛋饭，早餐有现做生煎包与养生粥品，服务时间与春禾苑基本同步，环境相对静谧，适合偏好清淡口味或需要安静就餐空间的师生。</p>",
+    "structuredInfo": {
+      "openTime": "6:30-20:00",
+      "averageCost": "15-25元",
+      "phone": "",
+      "type": "食堂",
+      "facilities": ["特色套餐", "点心", "生煎包", "养生粥"]
+    },
+    "tags": ["食堂", "餐饮", "秋谷苑"]
+  },
+  {
+    "name": "朋园3号楼",
+    "buildingId": 30,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "生活服务",
+    "mainImage": "/static/images/buildings/宿舍.jpg",
+    "richContent": "<h2>朋园3号楼</h2><p>朋园3号楼是校区学生宿舍楼，为学生提供住宿服务，配套生活设施，位于朋园公寓群。</p>",
+    "structuredInfo": {
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "宿舍楼",
+      "facilities": ["宿舍", "洗衣房", "开水间"]
+    },
+    "tags": ["宿舍", "朋园", "住宿"]
+  },
+  {
+    "name": "艺嘉楼",
+    "buildingId": 40,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "学术科研",
+    "mainImage": "/static/images/buildings/艺嘉楼.jpg",
+    "richContent": "<h2>艺嘉楼</h2><p>艺嘉楼位于校园东南端，毗邻教学区与宿舍区，西南面向湖景草坪。建筑采用2层与9层组合，成为校园南入口轴线东侧地标，与西侧图书馆相呼应。设计以"漫游垂直校园"为理念，通过坡道、楼梯、连廊等立体化空间串联地下至屋顶花园，形成如中国园林般的连续空间序列，步移景异。</p>",
+    "structuredInfo": {
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "学院楼",
+      "facilities": ["教室", "展览空间", "屋顶花园", "连廊"]
+    },
+    "tags": ["艺术", "传播", "地标", "艺嘉楼"]
+  },
+  {
+    "name": "传播与艺术学院",
+    "buildingId": 41,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "学术科研",
+    "mainImage": "/static/images/buildings/艺术与传播学院.jpg",
+    "richContent": "<h2>同济大学传播与艺术学院</h2><p>同济大学嘉定校区传播与艺术学院位于整个校园核心景观的西南侧，与图书馆隔湖相望，在整个校园中，占据了比较重要的位置。基地西侧及南侧为校园干道，因此将主入口广场设置在西南角，而南侧配合设置次入口。东北侧面临从图书馆方向来的人流，因此另开以次入口以应对人流来向。西北侧则为主要图书馆及地下车库入口。</p>",
+    "structuredInfo": {
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "学院楼",
+      "facilities": ["教室", "工作室", "展览空间", "办公室"]
+    },
+    "tags": ["学院", "传播", "艺术"]
+  },
+  {
+    "name": "体育中心",
+    "buildingId": 50,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "体育设施",
+    "mainImage": "/static/images/buildings/嘉定校区游泳馆.jpg",
+    "richContent": "<h2>体育中心</h2><p>体育中心是综合性体育设施，含多种运动场地（包括一个游泳馆）和设备，用于体育教学、训练及赛事，位于运动区域。</p>",
+    "structuredInfo": {
+      "openTime": "6:00-22:00",
+      "phone": "",
+      "type": "体育中心",
+      "facilities": ["游泳馆", "篮球场", "羽毛球场", "健身房"]
+    },
+    "tags": ["体育", "运动", "游泳", "健身"]
+  },
+  {
+    "name": "交通运输工程学院",
+    "buildingId": 60,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "学术科研",
+    "mainImage": "/static/images/buildings/交通学院.jpg",
+    "richContent": "<h2>交通运输工程学院</h2><p>交通运输工程学院楼宇是该学院教学科研场所，承担交通运输相关课程、实验及办公任务，设专业实验室和办公区域，位于学科集中区，支持学院学科建设。</p>",
+    "structuredInfo": {
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "学院楼",
+      "facilities": ["教室", "实验室", "办公室"]
+    },
+    "tags": ["学院", "交通", "工程"]
+  },
+  {
+    "name": "汽车学院",
+    "buildingId": 70,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "学术科研",
+    "mainImage": "/static/images/buildings/默认.jpg",
+    "richContent": "<h2>汽车学院</h2><p>汽车学院楼宇是汽车学科教学科研场所，承担汽车工程课程、实验及办公任务，设专业实验室（如汽车实验车间），位于校区汽车学科集中区，助力汽车领域人才培养。</p>",
+    "structuredInfo": {
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "学院楼",
+      "facilities": ["教室", "实验室", "汽车车间", "办公室"]
+    },
+    "tags": ["学院", "汽车", "工程"]
+  },
+  {
+    "name": "机械学院",
+    "buildingId": 80,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "学术科研",
+    "mainImage": "/static/images/buildings/默认.jpg",
+    "richContent": "<h2>机械学院</h2><p>机械学院楼宇是机械工程学科教学科研场所，承担机械课程、实验及办公任务，设专业实验室（如机械加工实验室），支持学院教学科研工作。</p>",
+    "structuredInfo": {
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "学院楼",
+      "facilities": ["教室", "实验室", "加工车间", "办公室"]
+    },
+    "tags": ["学院", "机械", "工程"]
+  },
+  {
+    "name": "足球场",
+    "buildingId": 90,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "体育设施",
+    "mainImage": "/static/images/buildings/默认.jpg",
+    "richContent": "<h2>足球场</h2><p>足球场是体育场地，用于足球教学、比赛及学生日常运动，设标准草坪和观众区，位于运动区域，为师生提供足球运动场所。</p>",
+    "structuredInfo": {
+      "openTime": "6:00-22:00",
+      "phone": "",
+      "type": "运动场",
+      "facilities": ["标准草坪", "观众区", "照明设施"]
+    },
+    "tags": ["体育", "足球", "运动"]
+  },
+  {
+    "name": "校医院",
+    "buildingId": 100,
+    "address": "嘉定校区",
+    "latitude": 31.28592,
+    "longitude": 121.213781,
+    "category": "生活服务",
+    "mainImage": "/static/images/buildings/默认.jpg",
+    "richContent": "<h2>校医院</h2><p>校医院是校区医疗服务机构，为师生提供日常医疗、健康咨询及急救服务，设诊疗室和药房，位于生活区附近，保障师生健康需求。</p>",
+    "structuredInfo": {
+      "openTime": "8:00-17:00",
+      "phone": "021-69580120",
+      "type": "医疗机构",
+      "facilities": ["诊疗室", "药房", "急救室"]
+    },
+    "tags": ["医疗", "健康", "校医院"]
+  }
+]

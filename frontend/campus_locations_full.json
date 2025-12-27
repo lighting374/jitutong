@@ -1,0 +1,798 @@
+[
+  {
+    "id": 1,
+    "name": "A楼",
+    "address": "教学区",
+    "category_id": 1,
+    "status": "published",
+    "main_image": "/images/buildings/teaching-a.jpg",
+    "structured_info": {
+      "position": [121.213781, 31.28592],
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "教学楼",
+      "facilities": ["教室", "办公室"]
+    },
+    "rich_content": "<h2>A楼简介</h2><p>A楼是嘉定校区主要的教学楼之一，配备了现代化的多媒体教室和研讨室。</p><h3>楼层分布</h3><ul><li>1-3层：普通教室</li><li>4层：教师休息室</li></ul>"
+  },
+  {
+    "id": 2,
+    "name": "B楼",
+    "address": "教学区",
+    "category_id": 1,
+    "status": "published",
+    "main_image": "/images/buildings/teaching-b.jpg",
+    "structured_info": {
+      "position": [121.214168, 31.286379],
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "教学楼",
+      "facilities": ["教室", "办公室"]
+    },
+    "rich_content": "<h2>B楼简介</h2><p>B楼紧邻A楼，主要用于基础课程教学。</p>"
+  },
+  {
+    "id": 3,
+    "name": "C楼",
+    "address": "教学区",
+    "category_id": 1,
+    "status": "published",
+    "main_image": "/images/buildings/teaching-c.jpg",
+    "structured_info": {
+      "position": [121.21449, 31.28675],
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "教学楼",
+      "facilities": ["教室", "办公室"]
+    },
+    "rich_content": "<h2>C楼简介</h2><p>C楼拥有多个阶梯教室，适合举办小型讲座。</p>"
+  },
+  {
+    "id": 4,
+    "name": "D楼",
+    "address": "教学区",
+    "category_id": 1,
+    "status": "published",
+    "main_image": "/images/buildings/teaching-d.jpg",
+    "structured_info": {
+      "position": [121.215407, 31.284834],
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "教学楼",
+      "facilities": ["教室", "办公室"]
+    },
+    "rich_content": "<h2>D楼简介</h2><p>D楼位于教学区东侧，环境幽静。</p>"
+  },
+  {
+    "id": 5,
+    "name": "E楼",
+    "address": "教学区",
+    "category_id": 1,
+    "status": "published",
+    "main_image": "/images/buildings/teaching-e.jpg",
+    "structured_info": {
+      "position": [121.216131, 31.284394],
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "教学楼",
+      "facilities": ["教室", "办公室"]
+    },
+    "rich_content": "<h2>E楼简介</h2><p>E楼是外语教学的主要场所，配备语音实验室。</p>"
+  },
+  {
+    "id": 6,
+    "name": "F楼",
+    "address": "教学区",
+    "category_id": 1,
+    "status": "published",
+    "main_image": "/images/buildings/teaching-f.jpg",
+    "structured_info": {
+      "position": [121.215484, 31.285484],
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "教学楼",
+      "facilities": ["教室", "办公室"]
+    },
+    "rich_content": "<h2>F楼简介</h2><p>F楼主要用于研究生课程教学。</p>"
+  },
+  {
+    "id": 7,
+    "name": "G楼",
+    "address": "教学区",
+    "category_id": 1,
+    "status": "published",
+    "main_image": "/images/buildings/teaching-g.jpg",
+    "structured_info": {
+      "position": [121.216358, 31.284992],
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "教学楼",
+      "facilities": ["教室", "办公室"]
+    },
+    "rich_content": "<h2>G楼简介</h2><p>G楼包含多个计算机实验室。</p>"
+  },
+  {
+    "id": 8,
+    "name": "H楼",
+    "address": "教学区",
+    "category_id": 1,
+    "status": "published",
+    "main_image": "/images/buildings/teaching-h.jpg",
+    "structured_info": {
+      "position": [121.216865, 31.285306],
+      "openTime": "7:00-22:00",
+      "phone": "",
+      "type": "教学楼",
+      "facilities": ["教室", "办公室"]
+    },
+    "rich_content": "<h2>H楼简介</h2><p>H楼位于教学区最东侧，靠近生活区。</p>"
+  },
+  {
+    "id": 9,
+    "name": "体育馆",
+    "address": "体育区",
+    "category_id": 3,
+    "status": "published",
+    "main_image": "/images/buildings/gym.jpg",
+    "structured_info": {
+      "position": [121.215939, 31.290161],
+      "openTime": "8:00-21:00",
+      "phone": "",
+      "type": "体育设施",
+      "facilities": ["篮球场", "羽毛球场", "健身房"]
+    },
+    "rich_content": "<h2>体育馆简介</h2><p>综合性体育馆，提供篮球、羽毛球等多种运动场地。</p>"
+  },
+  {
+    "id": 10,
+    "name": "嘉定校区图书馆",
+    "address": "上海市嘉定区曹安公路4800号同济大学嘉定校区",
+    "category_id": 2,
+    "status": "published",
+    "main_image": "/图书馆材料学院.jpg",
+    "structured_info": {
+      "building_id": 10,
+      "position": [121.211948, 31.286737],
+      "openTime": "周一至周日 8:00 - 22:00",
+      "phone": "021-69585000",
+      "website": "https://lib.tongji.edu.cn",
+      "averageCost": "免费",
+      "type": "学习场所",
+      "coordinates": {
+        "lat": 31.2857,
+        "lng": 121.2088
+      },
+      "facilities": ["阅览室", "自习室", "电子阅览室", "讨论室"],
+      "tags": ["图书馆", "学习", "安静", "免费"],
+      "rating": {
+        "average": 4.5,
+        "count": 128,
+        "distribution": [
+          { "stars": 5, "count": 80 },
+          { "stars": 4, "count": 32 },
+          { "stars": 3, "count": 12 },
+          { "stars": 2, "count": 3 },
+          { "stars": 1, "count": 1 }
+        ]
+      }
+    },
+    "rich_content": "\n      <h2>图书馆简介</h2>\n      <p>同济大学嘉定校区图书馆是一座现代化的学术建筑，为师生提供了丰富的学习资源和舒适的学习环境。</p>\n      \n      <h3>馆藏资源</h3>\n      <ul>\n        <li>纸质图书：超过100万册</li>\n        <li>电子资源：包含各类数据库和电子期刊</li>\n        <li>特殊馆藏：建筑、土木、材料等相关专业资料</li>\n      </ul>\n      \n      <h3>开放区域</h3>\n      <p>图书馆共分为多个区域：</p>\n      <ul>\n        <li><strong>阅览区</strong>：提供安静的阅读环境，配有舒适的座椅</li>\n        <li><strong>自习区</strong>：适合小组讨论和自主学习</li>\n        <li><strong>电子阅览室</strong>：配备电脑，可访问各类电子资源</li>\n        <li><strong>讨论室</strong>：可预约用于小组讨论</li>\n      </ul>\n      \n      <h3>服务设施</h3>\n      <p>图书馆提供以下服务：</p>\n      <ul>\n        <li>图书借还服务</li>\n        <li>参考咨询服务</li>\n        <li>打印复印服务</li>\n        <li>WIFI全覆盖</li>\n        <li>充电插座</li>\n      </ul>\n      \n      <h3>使用建议</h3>\n      <p>建议在考试周提前到达，座位较为紧张。可通过图书馆官网或APP提前预约座位。</p>\n    "
+  },
+  {
+    "id": 11,
+    "name": "大食堂",
+    "address": "生活区",
+    "category_id": 4,
+    "status": "published",
+    "main_image": "/images/buildings/canteen-big.jpg",
+    "structured_info": {
+      "position": [121.217055, 31.287543],
+      "openTime": "6:30-20:00",
+      "phone": "",
+      "type": "食堂",
+      "facilities": ["中餐", "西餐", "面食"]
+    },
+    "rich_content": "<h2>大食堂简介</h2><p>提供丰富多样的餐饮选择，价格实惠。</p>"
+  },
+  {
+    "id": 12,
+    "name": "小食堂",
+    "address": "生活区",
+    "category_id": 4,
+    "status": "published",
+    "main_image": "/images/buildings/canteen-small.jpg",
+    "structured_info": {
+      "position": [121.217832, 31.287548],
+      "openTime": "6:30-20:00",
+      "phone": "",
+      "type": "食堂",
+      "facilities": ["快餐", "小吃", "饮品"]
+    },
+    "rich_content": "<h2>小食堂简介</h2><p>特色小吃聚集地，口味独特。</p>"
+  },
+  {
+    "id": 13,
+    "name": "4号宿舍楼",
+    "address": "宿舍区",
+    "category_id": 5,
+    "status": "published",
+    "main_image": "/images/buildings/dorm-4.jpg",
+    "structured_info": {
+      "position": [121.217886, 31.286983],
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "宿舍",
+      "facilities": ["宿舍", "洗衣房"]
+    },
+    "rich_content": "<h2>4号楼简介</h2><p>本科生宿舍楼。</p>"
+  },
+  {
+    "id": 14,
+    "name": "5号宿舍楼",
+    "address": "宿舍区",
+    "category_id": 5,
+    "status": "published",
+    "main_image": "/images/buildings/dorm-5.jpg",
+    "structured_info": {
+      "position": [121.217666, 31.286708],
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "宿舍",
+      "facilities": ["宿舍", "洗衣房"]
+    },
+    "rich_content": "<h2>5号楼简介</h2><p>本科生宿舍楼。</p>"
+  },
+  {
+    "id": 15,
+    "name": "6号宿舍楼",
+    "address": "宿舍区",
+    "category_id": 5,
+    "status": "published",
+    "main_image": "/images/buildings/dorm-6.jpg",
+    "structured_info": {
+      "position": [121.217486, 31.286323],
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "宿舍",
+      "facilities": ["宿舍", "洗衣房"]
+    },
+    "rich_content": "<h2>6号楼简介</h2><p>本科生宿舍楼。</p>"
+  },
+  {
+    "id": 16,
+    "name": "7号宿舍楼",
+    "address": "宿舍区",
+    "category_id": 5,
+    "status": "published",
+    "main_image": "/images/buildings/dorm-7.jpg",
+    "structured_info": {
+      "position": [121.217996, 31.285594],
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "宿舍",
+      "facilities": ["宿舍", "洗衣房"]
+    },
+    "rich_content": "<h2>7号楼简介</h2><p>本科生宿舍楼。</p>"
+  },
+  {
+    "id": 17,
+    "name": "8号宿舍楼",
+    "address": "宿舍区",
+    "category_id": 5,
+    "status": "published",
+    "main_image": "/images/buildings/dorm-8.jpg",
+    "structured_info": {
+      "position": [121.218548, 31.28586],
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "宿舍",
+      "facilities": ["宿舍", "洗衣房"]
+    },
+    "rich_content": "<h2>8号楼简介</h2><p>本科生宿舍楼。</p>"
+  },
+  {
+    "id": 18,
+    "name": "9号宿舍楼",
+    "address": "宿舍区",
+    "category_id": 5,
+    "status": "published",
+    "main_image": "/images/buildings/dorm-9.jpg",
+    "structured_info": {
+      "position": [121.21879, 31.286258],
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "宿舍",
+      "facilities": ["宿舍", "洗衣房"]
+    },
+    "rich_content": "<h2>9号楼简介</h2><p>本科生宿舍楼。</p>"
+  },
+  {
+    "id": 19,
+    "name": "10号宿舍楼",
+    "address": "宿舍区",
+    "category_id": 5,
+    "status": "published",
+    "main_image": "/images/buildings/dorm-10.jpg",
+    "structured_info": {
+      "position": [121.218924, 31.286795],
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "宿舍",
+      "facilities": ["宿舍", "洗衣房"]
+    },
+    "rich_content": "<h2>10号楼简介</h2><p>本科生宿舍楼。</p>"
+  },
+  {
+    "id": 20,
+    "name": "11号宿舍楼",
+    "address": "宿舍区",
+    "category_id": 5,
+    "status": "published",
+    "main_image": "/images/buildings/dorm-11.jpg",
+    "structured_info": {
+      "position": [121.217604, 31.288152],
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "宿舍",
+      "facilities": ["宿舍", "洗衣房"]
+    },
+    "rich_content": "<h2>11号楼简介</h2><p>本科生宿舍楼。</p>"
+  },
+  {
+    "id": 21,
+    "name": "12号宿舍楼",
+    "address": "宿舍区",
+    "category_id": 5,
+    "status": "published",
+    "main_image": "/images/buildings/dorm-12.jpg",
+    "structured_info": {
+      "position": [121.217856, 31.288528],
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "宿舍",
+      "facilities": ["宿舍", "洗衣房"]
+    },
+    "rich_content": "<h2>12号楼简介</h2><p>本科生宿舍楼。</p>"
+  },
+  {
+    "id": 22,
+    "name": "13号宿舍楼",
+    "address": "宿舍区",
+    "category_id": 5,
+    "status": "published",
+    "main_image": "/images/buildings/dorm-13.jpg",
+    "structured_info": {
+      "position": [121.218006, 31.288954],
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "宿舍",
+      "facilities": ["宿舍", "洗衣房"]
+    },
+    "rich_content": "<h2>13号楼简介</h2><p>本科生宿舍楼。</p>"
+  },
+  {
+    "id": 23,
+    "name": "14号宿舍楼",
+    "address": "宿舍区",
+    "category_id": 5,
+    "status": "published",
+    "main_image": "/images/buildings/dorm-14.jpg",
+    "structured_info": {
+      "position": [121.2182, 31.289289],
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "宿舍",
+      "facilities": ["宿舍", "洗衣房"]
+    },
+    "rich_content": "<h2>14号楼简介</h2><p>本科生宿舍楼。</p>"
+  },
+  {
+    "id": 24,
+    "name": "15号宿舍楼",
+    "address": "宿舍区",
+    "category_id": 5,
+    "status": "published",
+    "main_image": "/images/buildings/dorm-15.jpg",
+    "structured_info": {
+      "position": [121.218301, 31.289733],
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "宿舍",
+      "facilities": ["宿舍", "洗衣房"]
+    },
+    "rich_content": "<h2>15号楼简介</h2><p>本科生宿舍楼。</p>"
+  },
+  {
+    "id": 25,
+    "name": "16号宿舍楼",
+    "address": "宿舍区",
+    "category_id": 5,
+    "status": "published",
+    "main_image": "/images/buildings/dorm-16.jpg",
+    "structured_info": {
+      "position": [121.218301, 31.290086],
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "宿舍",
+      "facilities": ["宿舍", "洗衣房"]
+    },
+    "rich_content": "<h2>16号楼简介</h2><p>本科生宿舍楼。</p>"
+  },
+  {
+    "id": 26,
+    "name": "17号宿舍楼",
+    "address": "宿舍区",
+    "category_id": 5,
+    "status": "published",
+    "main_image": "/images/buildings/dorm-17.jpg",
+    "structured_info": {
+      "position": [121.218296, 31.290455],
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "宿舍",
+      "facilities": ["宿舍", "洗衣房"]
+    },
+    "rich_content": "<h2>17号楼简介</h2><p>本科生宿舍楼。</p>"
+  },
+  {
+    "id": 27,
+    "name": "18号宿舍楼",
+    "address": "宿舍区",
+    "category_id": 5,
+    "status": "published",
+    "main_image": "/images/buildings/dorm-18.jpg",
+    "structured_info": {
+      "position": [121.218299, 31.290808],
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "宿舍",
+      "facilities": ["宿舍", "洗衣房"]
+    },
+    "rich_content": "<h2>18号楼简介</h2><p>本科生宿舍楼。</p>"
+  },
+  {
+    "id": 28,
+    "name": "19号宿舍楼",
+    "address": "宿舍区",
+    "category_id": 5,
+    "status": "published",
+    "main_image": "/images/buildings/dorm-19.jpg",
+    "structured_info": {
+      "position": [121.21968, 31.289798],
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "宿舍",
+      "facilities": ["宿舍", "洗衣房"]
+    },
+    "rich_content": "<h2>19号楼简介</h2><p>本科生宿舍楼。</p>"
+  },
+  {
+    "id": 29,
+    "name": "20号宿舍楼",
+    "address": "宿舍区",
+    "category_id": 5,
+    "status": "published",
+    "main_image": "/images/buildings/dorm-20.jpg",
+    "structured_info": {
+      "position": [121.219675, 31.290165],
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "宿舍",
+      "facilities": ["宿舍", "洗衣房"]
+    },
+    "rich_content": "<h2>20号楼简介</h2><p>本科生宿舍楼。</p>"
+  },
+  {
+    "id": 30,
+    "name": "北门",
+    "address": "北门",
+    "category_id": 6,
+    "status": "published",
+    "main_image": "/images/buildings/gate-north.jpg",
+    "structured_info": {
+      "position": [121.217642, 31.291178],
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "校门",
+      "facilities": ["出入口", "门禁"]
+    },
+    "rich_content": "<h2>北门简介</h2><p>嘉定校区主要出入口之一。</p>"
+  },
+  {
+    "id": 31,
+    "name": "西南1门",
+    "address": "西南门",
+    "category_id": 6,
+    "status": "published",
+    "main_image": "/images/buildings/gate-sw1.jpg",
+    "structured_info": {
+      "position": [121.212077, 31.282061],
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "校门",
+      "facilities": ["出入口", "门禁"]
+    },
+    "rich_content": "<h2>西南1门简介</h2><p>嘉定校区主要出入口之一。</p>"
+  },
+  {
+    "id": 32,
+    "name": "西南2门",
+    "address": "西南门",
+    "category_id": 6,
+    "status": "published",
+    "main_image": "/images/buildings/gate-sw2.jpg",
+    "structured_info": {
+      "position": [121.207313, 31.285116],
+      "openTime": "全天开放",
+      "phone": "",
+      "type": "校门",
+      "facilities": ["出入口", "门禁"]
+    },
+    "rich_content": "<h2>西南2门简介</h2><p>嘉定校区主要出入口之一。</p>"
+  },
+  {
+    "id": 34,
+    "name": "艺嘉楼",
+    "address": "上海市嘉定区曹安公路4800号同济大学嘉定校区",
+    "category_id": 1,
+    "status": "published",
+    "main_image": "/艺嘉楼.jpg",
+    "structured_info": {
+      "building_id": 34,
+      "position": [121.217432, 31.283671],
+      "openTime": "周一至周五 08:30-21:00，周末 10:00-18:00",
+      "phone": "021-69587000",
+      "website": "https://art.tongji.edu.cn",
+      "averageCost": "免费",
+      "type": "教学楼",
+      "facilities": ["展厅", "报告厅", "多媒体教室"],
+      "tags": ["艺术", "展览", "课程"],
+      "rating": {
+        "average": 4.7,
+        "count": 64,
+        "distribution": [
+          { "stars": 5, "count": 40 },
+          { "stars": 4, "count": 20 },
+          { "stars": 3, "count": 3 },
+          { "stars": 2, "count": 1 },
+          { "stars": 1, "count": 0 }
+        ]
+      }
+    },
+    "rich_content": "\n      <h2>艺嘉楼亮点</h2>\n      <p>常设多媒体展厅、公共讲座厅与实验教室，是校园艺术文化活动的核心场所。</p>\n      <h3>常设空间</h3>\n      <ul>\n        <li>一层公共展厅：对外开放主题展览</li>\n        <li>二层互动教室：开展艺术实践课程</li>\n        <li>三层报告厅：举办艺术讲座与论坛</li>\n      </ul>\n      <h3>活动推荐</h3>\n      <p>关注学院公众号即可查看最新展览及讲座安排，部分活动需提前预约。</p>\n    "
+  },
+  {
+    "id": 33,
+    "name": "嘉定校区游泳馆",
+    "address": "上海市嘉定区曹安公路4800号同济大学嘉定校区",
+    "category_id": 3,
+    "status": "published",
+    "main_image": "/嘉定校区游泳馆.jpg",
+    "structured_info": {
+      "building_id": 33,
+      "position": [121.215576, 31.289937],
+      "openTime": "周二至周日 09:00-21:30（周一维护）",
+      "phone": "021-69586000",
+      "website": "https://sports.tongji.edu.cn",
+      "averageCost": "学生 10 元/次",
+      "type": "运动场所",
+      "facilities": ["50米泳池", "更衣室", "淋浴"],
+      "tags": ["运动", "游泳", "健身"],
+      "rating": {
+        "average": 4.3,
+        "count": 56,
+        "distribution": [
+          { "stars": 5, "count": 30 },
+          { "stars": 4, "count": 18 },
+          { "stars": 3, "count": 6 },
+          { "stars": 2, "count": 1 },
+          { "stars": 1, "count": 1 }
+        ]
+      }
+    },
+    "rich_content": "\n      <h2>游泳馆简介</h2>\n      <p>泳池采用恒温系统，并配备专业救生团队，提供课程教学与自由泳时段。</p>\n      <h3>设施亮点</h3>\n      <ul>\n        <li>50 米标准泳池与训练池</li>\n        <li>专业更衣、淋浴与寄存柜</li>\n        <li>配套力量训练区与康复设备</li>\n      </ul>\n      <h3>使用须知</h3>\n      <p>入馆需携带校园卡或临时体验票，建议提前线上预约。</p>\n    "
+  },
+  {
+    "id": 35,
+    "name": "智信馆",
+    "address": "上海市嘉定区曹安公路4800号同济大学嘉定校区",
+    "category_id": 1,
+    "status": "published",
+    "main_image": "/图书馆材料学院.jpg",
+    "structured_info": {
+      "building_id": 35,
+      "position": [121.212677, 31.287596],
+      "openTime": "周一至周五 8:00-21:00",
+      "phone": "021-69580000",
+      "type": "教学楼",
+      "facilities": ["教室", "实验室", "机房"],
+      "tags": ["信息技术", "智能化", "教学"],
+      "rating": {
+        "average": 4.2,
+        "count": 15,
+        "distribution": [
+          { "stars": 5, "count": 8 },
+          { "stars": 4, "count": 5 },
+          { "stars": 3, "count": 2 },
+          { "stars": 2, "count": 0 },
+          { "stars": 1, "count": 0 }
+        ]
+      }
+    },
+    "rich_content": "<h2>智信馆简介</h2><p>智信馆是智能信息技术教学与研究的主要场所，配备先进的计算机设备和实验室。</p><h3>主要设施</h3><ul><li>现代化多媒体教室</li><li>计算机实验室</li><li>网络工程实验室</li></ul>"
+  },
+  {
+    "id": 36,
+    "name": "材料科学与工程学院",
+    "address": "上海市嘉定区曹安公路4800号同济大学嘉定校区",
+    "category_id": 1,
+    "status": "published",
+    "main_image": "/图书馆材料学院.jpg",
+    "structured_info": {
+      "building_id": 36,
+      "position": [121.211213, 31.287830],
+      "openTime": "周一至周五 8:00-21:00",
+      "phone": "021-69581000",
+      "type": "教学楼",
+      "facilities": ["教室", "实验室", "研究室"],
+      "tags": ["材料科学", "工程", "研究"],
+      "rating": {
+        "average": 4.3,
+        "count": 20,
+        "distribution": [
+          { "stars": 5, "count": 10 },
+          { "stars": 4, "count": 8 },
+          { "stars": 3, "count": 2 },
+          { "stars": 2, "count": 0 },
+          { "stars": 1, "count": 0 }
+        ]
+      }
+    },
+    "rich_content": "<h2>材料科学与工程学院简介</h2><p>材料科学与工程学院是同济大学的重点学科，拥有一流的实验设备和研究平台。</p><h3>特色专业</h3><ul><li>材料科学与工程</li><li>高分子材料</li><li>新能源材料</li></ul>"
+  },
+  {
+    "id": 37,
+    "name": "机械与能源工程学院",
+    "address": "上海市嘉定区曹安公路4800号同济大学嘉定校区",
+    "category_id": 1,
+    "status": "published",
+    "main_image": "/图书馆材料学院.jpg",
+    "structured_info": {
+      "building_id": 37,
+      "position": [121.211803, 31.288664],
+      "openTime": "周一至周五 8:00-21:00",
+      "phone": "021-69582000",
+      "type": "教学楼",
+      "facilities": ["教室", "实验室", "工程训练中心"],
+      "tags": ["机械工程", "能源", "工程训练"],
+      "rating": {
+        "average": 4.4,
+        "count": 25,
+        "distribution": [
+          { "stars": 5, "count": 12 },
+          { "stars": 4, "count": 10 },
+          { "stars": 3, "count": 3 },
+          { "stars": 2, "count": 0 },
+          { "stars": 1, "count": 0 }
+        ]
+      }
+    },
+    "rich_content": "<h2>机械与能源工程学院简介</h2><p>学院拥有完善的工程训练设施，为学生提供实践机会。</p><h3>主要设施</h3><ul><li>机械制造实验室</li><li>能源工程实验室</li><li>工程训练中心</li></ul>"
+  },
+  {
+    "id": 38,
+    "name": "交通运输工程学院",
+    "address": "上海市嘉定区曹安公路4800号同济大学嘉定校区",
+    "category_id": 1,
+    "status": "published",
+    "main_image": "/图书馆材料学院.jpg",
+    "structured_info": {
+      "building_id": 38,
+      "position": [121.213299, 31.288439],
+      "openTime": "周一至周五 8:00-21:00",
+      "phone": "021-69583000",
+      "type": "教学楼",
+      "facilities": ["教室", "实验室", "研究所"],
+      "tags": ["交通工程", "运输", "研究"],
+      "rating": {
+        "average": 4.5,
+        "count": 18,
+        "distribution": [
+          { "stars": 5, "count": 10 },
+          { "stars": 4, "count": 6 },
+          { "stars": 3, "count": 2 },
+          { "stars": 2, "count": 0 },
+          { "stars": 1, "count": 0 }
+        ]
+      }
+    },
+    "rich_content": "<h2>交通运输工程学院简介</h2><p>交通运输工程学院是同济大学的优势学科，在交通领域具有重要影响力。</p><h3>研究方向</h3><ul><li>道路与铁道工程</li><li>交通运输规划与管理</li><li>智能交通系统</li></ul>"
+  },
+  {
+    "id": 39,
+    "name": "校医院",
+    "address": "上海市嘉定区曹安公路4800号同济大学嘉定校区",
+    "category_id": 4,
+    "status": "published",
+    "main_image": "/图书馆材料学院.jpg",
+    "structured_info": {
+      "building_id": 39,
+      "position": [121.214769, 31.288132],
+      "openTime": "周一至周五 8:00-17:00",
+      "phone": "021-69584000",
+      "type": "医疗设施",
+      "facilities": ["门诊", "急诊", "药房"],
+      "tags": ["医疗", "健康", "服务"],
+      "rating": {
+        "average": 4.0,
+        "count": 30,
+        "distribution": [
+          { "stars": 5, "count": 10 },
+          { "stars": 4, "count": 12 },
+          { "stars": 3, "count": 6 },
+          { "stars": 2, "count": 2 },
+          { "stars": 1, "count": 0 }
+        ]
+      }
+    },
+    "rich_content": "<h2>校医院简介</h2><p>校医院为师生提供基本医疗服务，包括门诊、急诊和常见病治疗。</p><h3>服务项目</h3><ul><li>内科、外科门诊</li><li>常规检查</li><li>应急处理</li></ul><h3>注意事项</h3><p>就诊请携带校园卡或身份证。</p>"
+  },
+  {
+    "id": 40,
+    "name": "汽车学院",
+    "address": "上海市嘉定区曹安公路4800号同济大学嘉定校区",
+    "category_id": 1,
+    "status": "published",
+    "main_image": "/图书馆材料学院.jpg",
+    "structured_info": {
+      "building_id": 40,
+      "position": [121.210596, 31.289031],
+      "openTime": "周一至周五 8:00-21:00",
+      "phone": "021-69585000",
+      "type": "教学楼",
+      "facilities": ["教室", "实验室", "汽车实训中心"],
+      "tags": ["汽车工程", "实训", "研究"],
+      "rating": {
+        "average": 4.6,
+        "count": 22,
+        "distribution": [
+          { "stars": 5, "count": 14 },
+          { "stars": 4, "count": 6 },
+          { "stars": 3, "count": 2 },
+          { "stars": 2, "count": 0 },
+          { "stars": 1, "count": 0 }
+        ]
+      }
+    },
+    "rich_content": "<h2>汽车学院简介</h2><p>汽车学院拥有先进的汽车实训设施，为学生提供实践机会。</p><h3>特色设施</h3><ul><li>汽车结构实验室</li><li>发动机实验室</li><li>汽车维修实训中心</li></ul>"
+  },
+  {
+    "id": 41,
+    "name": "艺术与传媒学院",
+    "address": "上海市嘉定区曹安公路4800号同济大学嘉定校区",
+    "category_id": 1,
+    "status": "published",
+    "main_image": "/图书馆材料学院.jpg",
+    "structured_info": {
+      "building_id": 41,
+      "position": [121.209605, 31.285597],
+      "openTime": "周一至周五 8:00-21:00",
+      "phone": "021-69586000",
+      "type": "教学楼",
+      "facilities": ["教室", "工作室", "录音棚"],
+      "tags": ["艺术", "传媒", "创作"],
+      "rating": {
+        "average": 4.7,
+        "count": 28,
+        "distribution": [
+          { "stars": 5, "count": 18 },
+          { "stars": 4, "count": 8 },
+          { "stars": 3, "count": 2 },
+          { "stars": 2, "count": 0 },
+          { "stars": 1, "count": 0 }
+        ]
+      }
+    },
+    "rich_content": "<h2>艺术与传媒学院简介</h2><p>学院配备专业的艺术创作和传媒制作设施，为学生提供创作平台。</p><h3>专业设施</h3><ul><li>录音棚</li><li>摄影工作室</li><li>后期制作室</li></ul>"
+  }
+]

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后端连接诊断工具</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .btn-test {
+            background: #2196F3;
+        }
+        .btn-test:hover {
+            background: #0b7dda;
+        }
+        pre {
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            overflow-x: auto;
+            max-height: 400px;
+        }
+        .success {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .error {
+            color: #f44336;
+            font-weight: bold;
+        }
+        .info {
+            color: #2196F3;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 后端连接诊断工具</h1>
+    
+    <div class="card">
+        <h2>1. 测试后端连通性</h2>
+        <button class="btn-test" onclick="testConnection()">测试 GET /</button>
+        <button class="btn-test" onclick="testHealthCheck()">测试 GET /api/admin/info（需要先登录）</button>
+        <div id="connectionResult"></div>
+    </div>
+
+    <div class="card">
+        <h2>2. 管理员登录测试</h2>
+        <div class="form-group">
+            <label>后端地址：</label>
+            <input type="text" id="backendUrl" value="http://localhost:5000" placeholder="例如: http://localhost:5000">
+        </div>
+        <div class="form-group">
+            <label>用户名：</label>
+            <input type="text" id="username" value="admin_test" placeholder="输入管理员用户名">
+        </div>
+        <div class="form-group">
+            <label>密码：</label>
+            <input type="password" id="password" value="AdminPass123!" placeholder="输入密码">
+        </div>
+        <button onclick="testLogin()">测试登录</button>
+        <button onclick="clearResults()">清除结果</button>
+        <div id="loginResult"></div>
+    </div>
+
+    <div class="card">
+        <h2>3. Token 解析</h2>
+        <div class="form-group">
+            <label>JWT Token：</label>
+            <input type="text" id="tokenInput" placeholder="粘贴 JWT token">
+        </div>
+        <button class="btn-test" onclick="decodeToken()">解析 Token</button>
+        <div id="tokenResult"></div>
+    </div>
+
+    <script>
+        let savedToken = null;
+
+        async function testConnection() {
+            const resultDiv = document.getElementById('connectionResult');
+            resultDiv.innerHTML = '<p class="info">⏳ 正在测试连接...</p>';
+            
+            try {
+                const res = await fetch('/');
+                const data = await res.json();
+                resultDiv.innerHTML = `
+                    <p class="success">✅ 连接成功！</p>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (err) {
+                resultDiv.innerHTML = `
+                    <p class="error">❌ 连接失败</p>
+                    <pre>${err.message}</pre>
+                `;
+            }
+        }
+
+        async function testHealthCheck() {
+            const resultDiv = document.getElementById('connectionResult');
+            if (!savedToken) {
+                resultDiv.innerHTML = '<p class="error">❌ 请先登录获取 token</p>';
+                return;
+            }
+
+            resultDiv.innerHTML = '<p class="info">⏳ 正在测试 /api/admin/info...</p>';
+            
+            try {
+                const res = await fetch('/api/admin/info', {
+                    headers: {
+                        'Authorization': `Bearer ${savedToken}`
+                    }
+                });
+                const data = await res.json();
+                
+                if (res.ok) {
+                    resultDiv.innerHTML = `
+                        <p class="success">✅ API 调用成功！</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <p class="error">❌ API 返回错误 (${res.status})</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (err) {
+                resultDiv.innerHTML = `
+                    <p class="error">❌ 请求失败</p>
+                    <pre>${err.message}</pre>
+                `;
+            }
+        }
+
+        async function testLogin() {
+            const resultDiv = document.getElementById('loginResult');
+            const backendUrl = document.getElementById('backendUrl').value.trim();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (!username || !password) {
+                resultDiv.innerHTML = '<p class="error">❌ 请输入用户名和密码</p>';
+                return;
+            }
+
+            resultDiv.innerHTML = '<p class="info">⏳ 正在登录...</p>';
+
+            try {
+                console.log('发送登录请求到:', backendUrl || '/api/admin/login');
+                
+                const url = backendUrl ? `${backendUrl}/api/admin/login` : '/api/admin/login';
+                const res = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                console.log('响应状态:', res.status, res.statusText);
+                console.log('响应头:', Object.fromEntries(res.headers.entries()));
+
+                const contentType = res.headers.get('content-type');
+                let data;
+                
+                if (contentType && contentType.includes('application/json')) {
+                    data = await res.json();
+                } else {
+                    const text = await res.text();
+                    console.log('原始响应文本:', text);
+                    data = { rawResponse: text };
+                }
+
+                console.log('响应数据:', data);
+
+                if (res.ok) {
+                    savedToken = data.token || data.access_token || data.data?.token;
+                    
+                    resultDiv.innerHTML = `
+                        <p class="success">✅ 登录成功！</p>
+                        <h4>完整响应数据：</h4>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                        ${savedToken ? `<p class="info">Token 已保存，可以测试 API 调用了</p>` : ''}
+                    `;
+
+                    // 自动填充 token 到解析框
+                    if (savedToken) {
+                        document.getElementById('tokenInput').value = savedToken;
+                    }
+                } else {
+                    resultDiv.innerHTML = `
+                        <p class="error">❌ 登录失败 (HTTP ${res.status})</p>
+                        <h4>错误响应：</h4>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (err) {
+                console.error('登录错误:', err);
+                resultDiv.innerHTML = `
+                    <p class="error">❌ 请求失败</p>
+                    <pre>错误类型: ${err.name}
+错误信息: ${err.message}
+堆栈: ${err.stack}</pre>
+                `;
+            }
+        }
+
+        function decodeToken() {
+            const token = document.getElementById('tokenInput').value.trim();
+            const resultDiv = document.getElementById('tokenResult');
+
+            if (!token) {
+                resultDiv.innerHTML = '<p class="error">❌ 请输入 token</p>';
+                return;
+            }
+
+            try {
+                const parts = token.split('.');
+                if (parts.length !== 3) {
+                    throw new Error('Token 格式错误，应该有 3 部分');
+                }
+
+                const header = JSON.parse(atob(parts[0]));
+                const payload = JSON.parse(atob(parts[1]));
+
+                resultDiv.innerHTML = `
+                    <p class="success">✅ Token 解析成功</p>
+                    <h4>Header:</h4>
+                    <pre>${JSON.stringify(header, null, 2)}</pre>
+                    <h4>Payload:</h4>
+                    <pre>${JSON.stringify(payload, null, 2)}</pre>
+                    <h4>检查结果:</h4>
+                    <ul>
+                        <li>是否包含 type='admin': <strong class="${payload.type === 'admin' ? 'success' : 'error'}">${payload.type === 'admin' ? '是 ✅' : '否 ❌'}</strong></li>
+                        <li>是否包含 role: <strong>${payload.role || '无'}</strong></li>
+                        <li>是否包含 sub (用户ID): <strong>${payload.sub || '无'}</strong></li>
+                        <li>过期时间: <strong>${payload.exp ? new Date(payload.exp * 1000).toLocaleString('zh-CN') : '无'}</strong></li>
+                    </ul>
+                `;
+            } catch (err) {
+                resultDiv.innerHTML = `
+                    <p class="error">❌ 解析失败</p>
+                    <pre>${err.message}</pre>
+                `;
+            }
+        }
+
+        function clearResults() {
+            document.getElementById('loginResult').innerHTML = '';
+            document.getElementById('connectionResult').innerHTML = '';
+            document.getElementById('tokenResult').innerHTML = '';
+        }
+    </script>
+</body>
+</html>

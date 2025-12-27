@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理员登录测试</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+    .section {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+    .result {
+      margin-top: 10px;
+      padding: 10px;
+      background: #f3f4f6;
+      border-radius: 4px;
+      white-space: pre-wrap;
+      font-family: monospace;
+      font-size: 12px;
+    }
+    .success {
+      background: #d1fae5;
+      color: #065f46;
+    }
+    .error {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    input {
+      padding: 8px;
+      margin: 5px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h1>管理员登录调试工具</h1>
+
+  <div class="section">
+    <h2>1. 测试后端连接</h2>
+    <button onclick="testBackend()">测试后端 /api/admin/info</button>
+    <div id="backend-result" class="result"></div>
+  </div>
+
+  <div class="section">
+    <h2>2. 测试登录</h2>
+    <div>
+      <input type="text" id="username" placeholder="用户名" value="wiki_test" />
+      <input type="password" id="password" placeholder="密码" value="WikiPass123!" />
+    </div>
+    <button onclick="testLogin()">登录</button>
+    <button onclick="testAdminLogin()">测试 admin_test</button>
+    <div id="login-result" class="result"></div>
+  </div>
+
+  <div class="section">
+    <h2>3. 检查 LocalStorage</h2>
+    <button onclick="checkStorage()">查看存储数据</button>
+    <button onclick="clearStorage()">清除所有数据</button>
+    <div id="storage-result" class="result"></div>
+  </div>
+
+  <div class="section">
+    <h2>4. 测试 Token 验证</h2>
+    <button onclick="testTokenValidation()">验证当前 Token</button>
+    <div id="token-result" class="result"></div>
+  </div>
+
+  <script>
+    async function testBackend() {
+      const result = document.getElementById('backend-result');
+      try {
+        const res = await fetch('/api/admin/info', {
+          headers: {
+            'Authorization': 'Bearer ' + (localStorage.getItem('admin_token') || 'no-token')
+          }
+        });
+        const data = await res.json();
+        result.className = 'result ' + (res.ok ? 'success' : 'error');
+        result.textContent = `状态: ${res.status}\n响应: ${JSON.stringify(data, null, 2)}`;
+      } catch (e) {
+        result.className = 'result error';
+        result.textContent = '错误: ' + e.message;
+      }
+    }
+
+    async function testLogin() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const result = document.getElementById('login-result');
+      
+      try {
+        const res = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        
+        const data = await res.json();
+        result.className = 'result ' + (res.ok ? 'success' : 'error');
+        
+        if (res.ok) {
+          // 保存数据到 localStorage
+          localStorage.setItem('admin_token', data.token);
+          localStorage.setItem('admin_user', JSON.stringify(data.user));
+          if (data.expiresIn) {
+            const expiresAt = Date.now() + data.expiresIn * 1000;
+            localStorage.setItem('admin_token_expires_at', String(expiresAt));
+          }
+          result.textContent = `✓ 登录成功！\n状态: ${res.status}\n响应: ${JSON.stringify(data, null, 2)}\n\n已保存到 localStorage`;
+        } else {
+          result.textContent = `✗ 登录失败\n状态: ${res.status}\n响应: ${JSON.stringify(data, null, 2)}`;
+        }
+      } catch (e) {
+        result.className = 'result error';
+        result.textContent = '错误: ' + e.message;
+      }
+    }
+
+    async function testAdminLogin() {
+      document.getElementById('username').value = 'admin_test';
+      document.getElementById('password').value = 'AdminPass123!';
+      await testLogin();
+    }
+
+    function checkStorage() {
+      const result = document.getElementById('storage-result');
+      const data = {
+        admin_token: localStorage.getItem('admin_token'),
+        admin_user: localStorage.getItem('admin_user'),
+        admin_token_expires_at: localStorage.getItem('admin_token_expires_at'),
+        token_expired: localStorage.getItem('admin_token_expires_at') 
+          ? Date.now() > Number(localStorage.getItem('admin_token_expires_at'))
+          : null
+      };
+      
+      result.className = 'result';
+      result.textContent = JSON.stringify(data, null, 2);
+    }
+
+    function clearStorage() {
+      localStorage.removeItem('admin_token');
+      localStorage.removeItem('admin_user');
+      localStorage.removeItem('admin_token_expires_at');
+      localStorage.removeItem('admin_remember');
+      document.getElementById('storage-result').textContent = '✓ 已清除所有管理员相关数据';
+      document.getElementById('storage-result').className = 'result success';
+    }
+
+    async function testTokenValidation() {
+      const result = document.getElementById('token-result');
+      const token = localStorage.getItem('admin_token');
+      
+      if (!token) {
+        result.className = 'result error';
+        result.textContent = '✗ 未找到 Token，请先登录';
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/admin/info', {
+          headers: {
+            'Authorization': 'Bearer ' + token
+          }
+        });
+        
+        const data = await res.json();
+        result.className = 'result ' + (res.ok ? 'success' : 'error');
+        
+        if (res.ok) {
+          result.textContent = `✓ Token 有效\n状态: ${res.status}\n管理员信息: ${JSON.stringify(data, null, 2)}`;
+        } else {
+          result.textContent = `✗ Token 无效\n状态: ${res.status}\n响应: ${JSON.stringify(data, null, 2)}`;
+        }
+      } catch (e) {
+        result.className = 'result error';
+        result.textContent = '错误: ' + e.message;
+      }
+    }
+
+    // 页面加载时自动检查存储
+    window.onload = function() {
+      checkStorage();
+    };
+  </script>
+</body>
+</html>

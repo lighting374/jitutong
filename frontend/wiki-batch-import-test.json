@@ -1,0 +1,154 @@
+[
+  {
+    "name": "同济大学嘉定校区图书馆",
+    "buildingId": 101,
+    "address": "上海市嘉定区曹安公路4800号同济大学嘉定校区",
+    "latitude": 31.289234,
+    "longitude": 121.219876,
+    "category": "学术科研",
+    "mainImage": "/images/buildings/library.jpg",
+    "richContent": "<h2>图书馆简介</h2><p>嘉定校区图书馆是同济大学重要的学术资源中心，提供丰富的藏书和现代化的学习环境。</p><h3>设施</h3><ul><li>自习室300个座位</li><li>电子阅览室</li><li>研讨室10间</li><li>24小时自习区</li></ul><h3>特色服务</h3><p>图书馆提供文献检索、馆际互借、学科服务等专业支持。</p>",
+    "structuredInfo": {
+      "openTime": "周一至周日 7:00-22:00",
+      "averageCost": "免费",
+      "phone": "021-69583001",
+      "website": "https://lib.tongji.edu.cn",
+      "capacity": "300座位",
+      "facilities": ["自习室", "电子阅览室", "研讨室", "24小时自习区"]
+    },
+    "tags": ["图书馆", "学习", "自习", "学术"]
+  },
+  {
+    "name": "嘉定校区第一食堂",
+    "buildingId": 102,
+    "address": "同济大学嘉定校区生活区",
+    "latitude": 31.288567,
+    "longitude": 121.220345,
+    "category": "生活服务",
+    "mainImage": "/images/buildings/canteen-1.jpg",
+    "richContent": "<h2>第一食堂</h2><p>嘉定校区最大的食堂，提供南北风味美食，深受师生喜爱。</p><h3>楼层分布</h3><ul><li>一楼：大众窗口、面食、盖浇饭</li><li>二楼：特色小吃、麻辣烫、砂锅</li><li>三楼：清真餐厅、西餐</li></ul><h3>推荐菜品</h3><p>红烧肉盖浇饭、担担面、麻辣香锅、煲仔饭</p>",
+    "structuredInfo": {
+      "openTime": "早餐 6:30-9:00，午餐 11:00-13:00，晚餐 17:00-19:00",
+      "averageCost": "15-25元",
+      "phone": "021-69583002",
+      "capacity": "1200人",
+      "cuisine": ["中餐", "面食", "清真", "西餐", "小吃"],
+      "payment": ["现金", "校园卡", "支付宝", "微信"]
+    },
+    "tags": ["食堂", "餐饮", "美食", "生活"]
+  },
+  {
+    "name": "智信馆",
+    "buildingId": 103,
+    "address": "同济大学嘉定校区教学区",
+    "latitude": 31.289876,
+    "longitude": 121.221234,
+    "category": "学术科研",
+    "mainImage": "/images/buildings/zhixin.jpg",
+    "richContent": "<h2>智信馆</h2><p>智信馆是软件学院和电子与信息工程学院的主要教学楼，配备先进的实验室和多媒体教室。</p><h3>学院分布</h3><ul><li>1-2层：软件学院实验室</li><li>3-4层：电信学院教研室</li><li>5层：机房和创新实验室</li></ul><h3>设施特色</h3><p>拥有云计算实验室、人工智能实验室、网络安全实验室等前沿科研平台。</p>",
+    "structuredInfo": {
+      "openTime": "周一至周五 7:00-22:00，周末 8:00-20:00",
+      "averageCost": "免费",
+      "phone": "021-69583003",
+      "facilities": ["多媒体教室", "计算机机房", "实验室", "研讨室", "创客空间"],
+      "labs": ["云计算实验室", "AI实验室", "网络安全实验室"]
+    },
+    "tags": ["教学楼", "软件学院", "电信学院", "实验室", "科研"]
+  },
+  {
+    "name": "嘉定校区体育馆",
+    "buildingId": 104,
+    "address": "同济大学嘉定校区体育区",
+    "latitude": 31.287654,
+    "longitude": 121.219543,
+    "category": "休闲娱乐",
+    "mainImage": "/images/buildings/gym.jpg",
+    "richContent": "<h2>体育馆</h2><p>嘉定校区综合性体育场馆，提供多种运动设施和课程。</p><h3>场馆设施</h3><ul><li>篮球场3个</li><li>羽毛球场12个</li><li>乒乓球台20张</li><li>健身房1个</li><li>游泳馆（附属）</li></ul><h3>开放时间</h3><p>工作日下午和晚上开放，周末全天开放，部分时段需预约。</p>",
+    "structuredInfo": {
+      "openTime": "周一至周五 14:00-21:00，周末 8:00-21:00",
+      "averageCost": "学生免费，教职工10元/次",
+      "phone": "021-69583004",
+      "facilities": ["篮球场", "羽毛球场", "乒乓球", "健身房", "游泳馆"],
+      "reservation": "部分场地需提前预约"
+    },
+    "tags": ["体育馆", "运动", "健身", "篮球", "羽毛球"]
+  },
+  {
+    "name": "嘉定校区创新创业中心",
+    "buildingId": 105,
+    "address": "同济大学嘉定校区西南区",
+    "latitude": 31.288123,
+    "longitude": 121.218765,
+    "category": "学术科研",
+    "mainImage": "/images/buildings/innovation-center.jpg",
+    "richContent": "<h2>创新创业中心</h2><p>为学生提供创业孵化、项目指导和资源对接的综合平台。</p><h3>服务内容</h3><ul><li>创业项目孵化</li><li>导师一对一指导</li><li>创业培训课程</li><li>投融资对接</li><li>工位租赁</li></ul><h3>成功案例</h3><p>已孵化50+创业团队，累计融资超过5000万元。</p>",
+    "structuredInfo": {
+      "openTime": "周一至周五 9:00-18:00",
+      "averageCost": "工位500元/月，服务免费",
+      "phone": "021-69583005",
+      "website": "https://innovation.tongji.edu.cn",
+      "services": ["项目孵化", "创业培训", "导师指导", "投资对接"],
+      "workstations": "50个工位"
+    },
+    "tags": ["创新创业", "孵化器", "创业", "科技"]
+  },
+  {
+    "name": "嘉定校区咖啡书吧",
+    "buildingId": 106,
+    "address": "同济大学嘉定校区图书馆一楼",
+    "latitude": 31.289345,
+    "longitude": 121.219987,
+    "category": "生活服务",
+    "mainImage": "/images/buildings/coffee-shop.jpg",
+    "richContent": "<h2>咖啡书吧</h2><p>位于图书馆一楼的休闲空间，提供咖啡、茶饮和轻食。</p><h3>环境特色</h3><p>温馨舒适的阅读环境，配有沙发座椅、书架和绿植，是学习之余放松的好去处。</p><h3>推荐饮品</h3><ul><li>美式咖啡 12元</li><li>拿铁 18元</li><li>奶茶系列 15-20元</li><li>现磨豆浆 8元</li></ul>",
+    "structuredInfo": {
+      "openTime": "周一至周日 8:00-21:00",
+      "averageCost": "15-30元",
+      "phone": "021-69583006",
+      "menu": ["咖啡", "奶茶", "果汁", "蛋糕", "三明治"],
+      "seating": "60个座位",
+      "wifi": "免费WiFi",
+      "payment": ["现金", "校园卡", "支付宝", "微信"]
+    },
+    "tags": ["咖啡", "书吧", "休闲", "学习", "轻食"]
+  },
+  {
+    "name": "嘉定校区医务室",
+    "buildingId": 107,
+    "address": "同济大学嘉定校区行政楼一楼",
+    "latitude": 31.289567,
+    "longitude": 121.220876,
+    "category": "生活服务",
+    "mainImage": "/images/buildings/clinic.jpg",
+    "richContent": "<h2>校医务室</h2><p>为师生提供基本医疗服务和健康咨询。</p><h3>服务项目</h3><ul><li>常见病诊治</li><li>外伤处理</li><li>健康体检</li><li>疫苗接种</li><li>健康咨询</li></ul><h3>就诊须知</h3><p>请携带校园卡或身份证，急诊随时接待，普通门诊需排号。</p>",
+    "structuredInfo": {
+      "openTime": "周一至周五 8:00-11:30，13:30-17:00；急诊24小时",
+      "averageCost": "医保报销，自费5-50元",
+      "phone": "021-69583007",
+      "emergency": "021-69583119",
+      "services": ["门诊", "急诊", "体检", "疫苗", "健康咨询"],
+      "doctors": "全科医生3名，护士2名"
+    },
+    "tags": ["医务室", "医疗", "健康", "急诊"]
+  },
+  {
+    "name": "嘉定校区超市",
+    "buildingId": 108,
+    "address": "同济大学嘉定校区生活区中心",
+    "latitude": 31.288456,
+    "longitude": 121.220567,
+    "category": "生活服务",
+    "mainImage": "/images/buildings/supermarket.jpg",
+    "richContent": "<h2>校园超市</h2><p>校内最大的综合超市，商品种类齐全，价格实惠。</p><h3>商品分类</h3><ul><li>食品饮料</li><li>日用百货</li><li>文具书籍</li><li>数码配件</li><li>洗护用品</li></ul><h3>便民服务</h3><p>提供快递代收、充值缴费、复印打印等服务。</p>",
+    "structuredInfo": {
+      "openTime": "周一至周日 7:00-22:30",
+      "averageCost": "10-100元",
+      "phone": "021-69583008",
+      "area": "500平方米",
+      "categories": ["食品", "日用品", "文具", "数码", "洗护"],
+      "payment": ["现金", "校园卡", "支付宝", "微信"],
+      "services": ["快递代收", "充值缴费", "复印打印"]
+    },
+    "tags": ["超市", "购物", "生活", "便利"]
+  }
+]

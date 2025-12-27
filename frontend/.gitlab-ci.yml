@@ -1,0 +1,59 @@
+# 定义流水线的三个阶段（对应三个绿点）
+stages:
+  - build   # 1. 构建
+  - test    # 2. 测试
+  - deploy  # 3. 部署
+
+# 指定 Docker Runner 标签(虽然开了允许无标签，但写上更保险)
+default:
+  tags:
+    - ljy-docker-runner
+  image: node:20-slim # 使用默认的 node:20-slim 镜像
+
+# --- 第一阶段：Build (构建) ---
+# 安装依赖并打包 Vue 项目
+build_job:
+  stage: build
+  script:
+    - echo "=== 1. 安装依赖并构建 (Docker Container) ==="
+    - npm install           # 安装项目依赖
+    - npm run build-only    # 执行Vue打包命令 (通常会生成 dist 目录)
+    - echo "=== 构建完成！ ==="
+  artifacts:
+    paths:
+      - dist/          # 把打包好的 dist 文件夹存起来，供后面使用
+    expire_in: 1 hour  # 1小时后自动清理，节省空间
+  
+  # 关键：缓存 node_modules，加速 test_job 的依赖恢复
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+    policy: pull-push
+
+# --- 第二阶段：Test (测试) ---
+test_job:
+  stage: test
+  script:
+    - echo "=== 2. 恢复依赖并运行单元测试 ==="
+    # 关键：Docker 容器隔离性强，需要重新 npm install 或从 cache 恢复
+    - npm install
+    
+    - echo "=== 3. 运行静态代码检查 (Type Check) ==="
+    # - npm run type-check
+    
+    - echo "=== 4. 运行单元测试 (Unit Test) ==="
+    # 运行刚才新加的 Vitest
+    - npm run test:unit # 恢复使用 npm run test:unit，Docker 环境稳定
+  needs:
+    - build_job                 # 只有构建成功了，才跑测试
+
+# --- 第三阶段：Deploy (部署) ---
+# 目前这是一个“占位”任务，为了拿到第三个绿点
+deploy_job:
+  stage: deploy
+  script:
+    - echo "=== 5. 模拟部署 ==="
+    - echo "项目已部署到服务器..." # 以后这里可以换成真正的服务器传输命令
+  needs:
+    - test_job                  # 只有测试通过了，才跑部署

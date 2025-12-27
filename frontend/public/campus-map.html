@@ -1,0 +1,2357 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>济图通</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: #f5f7fa;
+      }
+
+      #app {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .container {
+        flex: 1;
+        display: flex;
+        overflow: hidden;
+      }
+
+      .sidebar {
+        width: 300px;
+        background: white;
+        border-right: 1px solid #e0e0e0;
+        overflow-y: auto;
+        transition: all 0.3s ease;
+      }
+      
+      .sidebar.collapsed {
+        width: 0;
+        overflow: hidden;
+      }
+
+      .sidebar-header {
+        padding: 15px 20px;
+        border-bottom: 1px solid #e0e0e0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .layer-filter-btn {
+        padding: 6px 12px;
+        background: #f5f7fa;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 13px;
+        transition: all 0.3s;
+      }
+      
+      .layer-filter-btn:hover {
+        background: #e8eaf0;
+      }
+      
+      .layer-filter-btn.active {
+        background: #667eea;
+        color: white;
+        border-color: #667eea;
+      }
+      
+      .layer-filter-panel {
+        background: #f9fafb;
+        border-bottom: 1px solid #e0e0e0;
+        padding: 15px;
+        animation: slideDown 0.3s ease;
+      }
+      
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          max-height: 0;
+          padding: 0 15px;
+        }
+        to {
+          opacity: 1;
+          max-height: 500px;
+          padding: 15px;
+        }
+      }
+      
+      .filter-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        font-weight: 600;
+        font-size: 14px;
+        color: #333;
+      }
+      
+      .filter-actions {
+        display: flex;
+        gap: 8px;
+      }
+      
+      .filter-action-btn {
+        padding: 4px 10px;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: all 0.2s;
+      }
+      
+      .filter-action-btn:hover {
+        background: #667eea;
+        color: white;
+        border-color: #667eea;
+      }
+      
+      .category-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      
+      .category-item {
+        display: flex;
+        align-items: center;
+        padding: 10px 12px;
+        background: white;
+        border: 2px solid #e0e0e0;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      
+      .category-item:hover {
+        border-color: #667eea;
+        transform: translateX(3px);
+      }
+      
+      .category-item.active {
+        background: #667eea;
+        border-color: #667eea;
+        color: white;
+      }
+      
+      .category-icon {
+        font-size: 20px;
+        margin-right: 10px;
+      }
+      
+      .category-name {
+        flex: 1;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      
+      .category-check {
+        font-size: 18px;
+        font-weight: bold;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      
+      .category-item.active .category-check {
+        opacity: 1;
+      }
+      .search-box {
+        margin: 20px;
+      }
+      .search-box input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .building-list {
+        padding: 0 20px 20px;
+      }
+      .building-category {
+        margin-bottom: 20px;
+      }
+      .category-title {
+        font-weight: bold;
+        color: #667eea;
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+
+      .building-item {
+        padding: 10px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+        border-left: 3px solid transparent;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .building-item:hover {
+        background: #f5f7fa;
+        border-left-color: #667eea;
+      }
+
+      .building-info {
+        flex: 1;
+      }
+
+      .favorite-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 20px;
+        padding: 5px;
+        line-height: 1;
+        transition: transform 0.2s;
+        color: #d1d5db;
+      }
+
+      .favorite-btn:hover {
+        transform: scale(1.2);
+      }
+
+      .favorite-btn:active {
+        transform: scale(0.9);
+      }
+
+      .favorite-btn.active {
+        color: #f472b6;
+        text-shadow: 0 0 6px rgba(244, 114, 182, 0.6);
+        transform: scale(1.1);
+      }
+
+      .navigation-panel {
+        padding: 20px;
+        border-bottom: 1px solid #e0e0e0;
+        background: #f9fafb;
+      }
+
+      .nav-title {
+        font-weight: bold;
+        color: #667eea;
+        margin-bottom: 15px;
+        font-size: 14px;
+      }
+
+      .nav-input-group {
+        margin-bottom: 10px;
+      }
+
+      .nav-input-group label {
+        display: block;
+        font-size: 12px;
+        color: #666;
+        margin-bottom: 5px;
+      }
+
+      .nav-input-group select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .nav-button {
+        width: 100%;
+        padding: 10px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        margin-top: 10px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+      }
+
+      .nav-button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(102, 126, 234, 0.4);
+      }
+
+      .nav-button:active {
+        transform: translateY(0);
+      }
+
+      .nav-button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .clear-button {
+        background: #e0e0e0;
+        color: #666;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .clear-button:hover {
+        background: #d0d0d0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      .route-info {
+        margin-top: 15px;
+        padding: 12px;
+        background: linear-gradient(135deg, #e8f5e9 0%, #e3f2fd 100%);
+        border-radius: 8px;
+        font-size: 13px;
+        border: 1px solid #b2dfdb;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      .route-info p {
+        margin: 8px 0;
+        color: #2c3e50;
+      }
+
+      .route-info p:first-child {
+        margin-top: 0;
+      }
+
+      .route-info p:last-child {
+        margin-bottom: 0;
+      }
+
+      .map-pick-btn {
+        background: #34c759;
+        font-size: 12px;
+        padding: 5px 10px;
+        margin-left: 5px;
+        border: none;
+        border-radius: 3px;
+        color: white;
+        cursor: pointer;
+      }
+
+      .map-pick-btn:hover {
+        opacity: 0.8;
+      }
+
+      .map-pick-btn.active {
+        background: #ff9500;
+      }
+
+      .pick-hint {
+        font-size: 11px;
+        color: #ff9500;
+        margin-top: 5px;
+        font-style: italic;
+      }
+
+      .favorites-quick-access {
+        padding: 15px 20px;
+        border-bottom: 1px solid #e0e0e0;
+        background: #fff9e6;
+      }
+
+      .favorites-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+        color: #667eea;
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+
+      .favorites-list {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .favorite-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 10px;
+        background: white;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 13px;
+      }
+
+      .favorite-item:hover {
+        background: #f5f7fa;
+        transform: translateX(3px);
+      }
+
+      .favorite-btn-small {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 0;
+        line-height: 1;
+        transition: transform 0.2s;
+        color: #d1d5db;
+      }
+
+      .favorite-btn-small:hover {
+        transform: scale(1.2);
+      }
+
+      .favorite-btn-small.active {
+        color: #f472b6;
+        text-shadow: 0 0 4px rgba(244, 114, 182, 0.6);
+      }
+
+      .favorite-route-button {
+        width: 100%;
+        margin-top: 10px;
+        padding: 8px 16px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .favorite-route-button:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+      }
+
+      .favorite-route-button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      .share-route-button {
+        width: 100%;
+        margin-top: 8px;
+        padding: 8px 16px;
+        background: linear-gradient(135deg, #34c759 0%, #30a14e 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .share-route-button:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(52, 199, 89, 0.4);
+      }
+
+      .share-route-button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      .favorite-routes-section {
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .favorite-routes-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .favorite-route-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px;
+        background: #f9fafb;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .favorite-route-item:hover {
+        background: #f3f4f6;
+        transform: translateX(3px);
+      }
+
+      .route-item-content {
+        flex: 1;
+      }
+
+      .route-item-name {
+        font-size: 14px;
+        font-weight: 500;
+        color: #1f2937;
+        margin-bottom: 4px;
+      }
+
+      .route-item-info {
+        display: flex;
+        gap: 12px;
+        font-size: 12px;
+        color: #6b7280;
+      }
+
+      .map-container {
+        flex: 1;
+        position: relative;
+        background: white;
+      }
+
+      .map-wrapper {
+        width: 100%;
+        height: 100%;
+      }
+
+      .info-panel {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        min-width: 250px;
+        max-width: 350px;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #999;
+      }
+
+      .stats {
+        background: white;
+        border-top: 1px solid #e0e0e0;
+        display: flex;
+        justify-content: space-around;
+        padding: 15px;
+      }
+
+      .stat-item {
+        text-align: center;
+      }
+
+      .stat-value {
+        font-size: 24px;
+        font-weight: bold;
+        color: #667eea;
+      }
+
+      .stat-label {
+        font-size: 12px;
+        color: #666;
+        margin-top: 5px;
+      }
+
+      .coordinate-display {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 10px 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        font-family: monospace;
+        font-size: 14px;
+        z-index: 1000;
+      }
+
+      .coordinate-display strong {
+        color: #667eea;
+      }
+
+      .copy-hint {
+        display: block;
+        margin-top: 5px;
+        font-size: 12px;
+        color: #999;
+        font-style: italic;
+      }
+
+      .copy-message {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(102, 126, 234, 0.95);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        font-size: 14px;
+        z-index: 2000;
+        animation: fadeIn 0.3s;
+        white-space: nowrap;
+      }
+
+      .copy-message.success {
+        background: rgba(52, 199, 89, 0.95);
+      }
+
+      .copy-message.error {
+        background: rgba(255, 59, 48, 0.95);
+      }
+
+      .copy-message.warning {
+        background: rgba(255, 149, 0, 0.95);
+      }
+
+      .copy-message.info {
+        background: rgba(102, 126, 234, 0.95);
+      }
+
+      /* 别称输入弹窗 */
+      .alias-dialog-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        animation: fadeIn 0.2s ease;
+      }
+
+      .alias-dialog {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        width: 90%;
+        max-width: 400px;
+        animation: slideUp 0.3s ease;
+      }
+
+      .alias-dialog-header {
+        padding: 20px;
+        border-bottom: 1px solid #e0e0e0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .alias-dialog-header h3 {
+        margin: 0;
+        font-size: 18px;
+        color: #1f2937;
+      }
+
+      .alias-dialog-header .close-btn {
+        background: none;
+        border: none;
+        font-size: 28px;
+        color: #999;
+        cursor: pointer;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.2s;
+      }
+
+      .alias-dialog-header .close-btn:hover {
+        background: #f3f4f6;
+        color: #666;
+      }
+
+      .alias-dialog-body {
+        padding: 20px;
+      }
+
+      .alias-hint {
+        margin: 0 0 15px 0;
+        color: #6b7280;
+        font-size: 14px;
+      }
+
+      .alias-input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: border-color 0.2s;
+        box-sizing: border-box;
+      }
+
+      .alias-input:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+
+      .alias-length {
+        margin: 8px 0 0 0;
+        text-align: right;
+        font-size: 12px;
+        color: #9ca3af;
+      }
+
+      .alias-dialog-footer {
+        padding: 15px 20px;
+        border-top: 1px solid #e0e0e0;
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+      }
+
+      .btn-cancel,
+      .btn-confirm {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .btn-cancel {
+        background: #f3f4f6;
+        color: #6b7280;
+      }
+
+      .btn-cancel:hover {
+        background: #e5e7eb;
+      }
+
+      .btn-confirm {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .btn-confirm:hover:not(:disabled) {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+      }
+
+      .btn-confirm:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      
+      /* 侧边栏收起按钮 */
+      .toggle-sidebar-btn {
+        position: fixed;
+        left: 310px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 32px;
+        height: 64px;
+        background: white;
+        border: 1px solid #e0e0e0;
+        border-left: none;
+        border-radius: 0 8px 8px 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        z-index: 100;
+        box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+      }
+      
+      .toggle-sidebar-btn:hover {
+        background: #f5f7fa;
+        width: 36px;
+      }
+      
+      .toggle-sidebar-btn.collapsed {
+        left: 10px;
+      }
+      
+      .toggle-sidebar-btn svg {
+        width: 20px;
+        height: 20px;
+        transition: transform 0.3s ease;
+      }
+      
+      .toggle-sidebar-btn.collapsed svg {
+        transform: rotate(180deg);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+
+      <div class="container">
+        <div class="sidebar" :class="{collapsed: sidebarCollapsed}">
+          <div class="sidebar-header">
+            <h2>📍 校园建筑</h2>
+            <button class="layer-filter-btn" @click="toggleLayerFilter" :class="{active: layerFilterVisible}">
+              📊 图层筛选
+            </button>
+          </div>
+
+          <!-- 图层筛选面板 -->
+          <div class="layer-filter-panel" v-if="layerFilterVisible">
+            <div class="filter-header">
+              <span>选择显示类别</span>
+              <div class="filter-actions">
+                <button class="filter-action-btn" @click="selectAllCategories">全选</button>
+                <button class="filter-action-btn" @click="deselectAllCategories">清空</button>
+              </div>
+            </div>
+            <div class="category-list">
+              <div 
+                v-for="category in categoryDefinitions" 
+                :key="category.id"
+                class="category-item"
+                :class="{active: activeCategories.includes(category.id)}"
+                @click="toggleCategory(category.id)"
+              >
+                <span class="category-icon">{{ category.icon }}</span>
+                <span class="category-name">{{ category.name }}</span>
+                <span class="category-check">✓</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="navigation-panel">
+            <div class="nav-title">🧭 路线导航</div>
+            <div class="nav-input-group">
+              <label>起点</label>
+              <div style="display: flex; align-items: center">
+                <select v-model="navStart" style="flex: 1">
+                  <option value="">请选择起点</option>
+                  <option v-for="building in allBuildings" :key="building.id" :value="building.id">
+                    {{ getBuildingName(building.id) }}
+                  </option>
+                  <option value="custom_start" v-if="customStart">📍 地图选点</option>
+                </select>
+                <button
+                  class="map-pick-btn"
+                  :class="{active: pickingStart}"
+                  @click="togglePickStart"
+                >
+                  {{ pickingStart ? '取消' : '选点' }}
+                </button>
+              </div>
+              <div class="pick-hint" v-if="pickingStart">点击地图选择起点位置</div>
+            </div>
+            <div class="nav-input-group">
+              <label>终点</label>
+              <div style="display: flex; align-items: center">
+                <select v-model="navEnd" style="flex: 1">
+                  <option value="">请选择终点</option>
+                  <option v-for="building in allBuildings" :key="building.id" :value="building.id">
+                    {{ getBuildingName(building.id) }}
+                  </option>
+                  <option value="custom_end" v-if="customEnd">📍 地图选点</option>
+                </select>
+                <button class="map-pick-btn" :class="{active: pickingEnd}" @click="togglePickEnd">
+                  {{ pickingEnd ? '取消' : '选点' }}
+                </button>
+              </div>
+              <div class="pick-hint" v-if="pickingEnd">点击地图选择终点位置</div>
+            </div>
+            <button class="nav-button" @click="planRoute" :disabled="!navStart || !navEnd">
+              开始导航
+            </button>
+            <button class="nav-button clear-button" @click="clearRoute" v-if="routeInfo">
+              清除路线
+            </button>
+            <div class="route-info" v-if="routeInfo">
+              <p><strong>📍 距离：</strong>{{ routeInfo.distance }}</p>
+              <p><strong>🚶 步行时间：</strong>{{ routeInfo.walkTime }}</p>
+              <p><strong>🚴 骑行时间：</strong>{{ routeInfo.bikeTime }}</p>
+              <button 
+                class="favorite-route-button" 
+                @click="toggleRouteFavorite"
+                :disabled="isSavingRoute"
+              >
+                <span v-if="!isSavingRoute">
+                  {{ isRouteFavorited ? '⭐ 已收藏路线' : '☆ 收藏路线' }}
+                </span>
+                <span v-else>处理中...</span>
+              </button>
+              <button 
+                class="share-route-button" 
+                @click="shareRoute"
+                :disabled="isGeneratingImage"
+              >
+                <span v-if="!isGeneratingImage">
+                  📤 分享路线
+                </span>
+                <span v-else>生成中...</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="favorites-quick-access" v-if="favorites.length > 0">
+            <div class="favorites-title">
+              <span>⭐ 我的收藏 ({{ favorites.length }})</span>
+              <a
+                href="/my-favorites"
+                target="_parent"
+                style="font-size: 12px; color: #667eea; text-decoration: none"
+                >查看全部</a
+              >
+            </div>
+            <div class="favorites-list">
+              <div
+                v-for="favId in favorites.slice(0, 3)"
+                :key="favId"
+                class="favorite-item"
+                @click="navigateToWiki(favId)"
+              >
+                <span>{{ getBuildingName(favId) }}</span>
+                <button
+                  class="favorite-btn-small"
+                  :class="{ active: favorites.includes(favId) }"
+                  @click.stop="toggleFavorite(favId)"
+                  title="取消收藏"
+                >
+                  ❤️
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 收藏路线列表 -->
+          <div class="favorite-routes-section" v-if="favoriteRoutes.length > 0">
+            <div class="favorites-title">
+              <span>📍 收藏路线 ({{ favoriteRoutes.length }})</span>
+              <a
+                href="/my-routes"
+                target="_parent"
+                style="font-size: 12px; color: #667eea; text-decoration: none"
+                >查看全部</a
+              >
+            </div>
+            <div class="favorite-routes-list">
+              <div
+                v-for="route in favoriteRoutes.slice(0, 3)"
+                :key="route.id"
+                class="favorite-route-item"
+                @click="loadFavoriteRoute(route)"
+              >
+                <div class="route-item-content">
+                  <div class="route-item-name">
+                    {{ route.name || `${route.startName} → ${route.endName}` }}
+                  </div>
+                  <div class="route-item-info">
+                    <span>📍 {{ route.distance }}</span>
+                    <span>🚶 {{ route.walkTime }}</span>
+                  </div>
+                </div>
+                <button
+                  class="favorite-btn-small"
+                  @click.stop="removeRouteFavorite(route.id)"
+                  title="取消收藏"
+                >
+                  ✖️
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="search-box">
+            <input type="text" v-model="searchQuery" placeholder="搜索建筑..." />
+          </div>
+
+          <div class="building-list">
+            <div
+              class="building-category"
+              v-for="category in filteredCategories"
+              :key="category.name"
+            >
+              <div class="category-title">{{ category.name }}</div>
+              <div class="building-item" v-for="building in category.buildings" :key="building.id">
+                <div class="building-info" @click="focusBuilding(building)">
+                  <div class="building-name">{{ getBuildingName(building.id) }}</div>
+                  <div class="building-desc">{{ getBuildingAddress(building.id) }}</div>
+                </div>
+                <button
+                  class="favorite-btn"
+                  :class="{ active: favorites.includes(building.id) }"
+                  @click.stop="toggleFavorite(building.id)"
+                  :title="favorites.includes(building.id) ? '取消收藏' : '收藏'"
+                >
+                  {{ favorites.includes(building.id) ? '❤️' : '🤍' }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 侧边栏收起按钮 -->
+        <button class="toggle-sidebar-btn" :class="{collapsed: sidebarCollapsed}" @click="toggleSidebar" title="收起/展开侧边栏">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+
+        <div class="map-container">
+          <el-amap
+            ref="map"
+            vid="campusMap"
+            :center="center"
+            :zoom="zoom"
+            :plugin="plugins"
+            :events="mapEvents"
+            class="map-wrapper"
+          >
+            <el-amap-marker
+              v-for="building in filteredBuildings"
+              :key="building.id"
+              :position="building.position"
+              :visible="currentZoom >= minZoomForMarkers"
+              :events="{
+                            click: () => showBuildingInfo(building)
+                        }"
+            >
+            </el-amap-marker>
+
+            <el-amap-info-window
+              v-if="selectedBuilding"
+              :position="selectedBuilding.position"
+              :content="formatInfoContent(selectedBuilding)"
+              :open="infoWindowOpen"
+            >
+            </el-amap-info-window>
+          </el-amap>
+
+          <div class="copy-message" :class="messageType" v-if="copyMessage">{{ copyMessage }}</div>
+          
+          <!-- 别称输入弹窗 -->
+          <div v-if="showAliasDialog" class="alias-dialog-overlay" @click="closeAliasDialog">
+            <div class="alias-dialog" @click.stop>
+              <div class="alias-dialog-header">
+                <h3>🏷️ 为{{ aliasType === 'start' ? '起点' : '终点' }}起个名字</h3>
+                <button class="close-btn" @click="closeAliasDialog">×</button>
+              </div>
+              <div class="alias-dialog-body">
+                <p class="alias-hint">为了方便记忆，请为{{ aliasType === 'start' ? '起点' : '终点' }}起个别称：</p>
+                <input
+                  v-model="aliasInput"
+                  type="text"
+                  class="alias-input"
+                  placeholder="例如：我的宿舍、常去的地方"
+                  maxlength="20"
+                  @keypress.enter="confirmAlias"
+                  autofocus
+                />
+                <p class="alias-length">{{ aliasInput.length }}/20</p>
+              </div>
+              <div class="alias-dialog-footer">
+                <button class="btn-cancel" @click="closeAliasDialog">取消</button>
+                <button class="btn-confirm" @click="confirmAlias" :disabled="!aliasInput.trim()">
+                  确定收藏
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat-item">
+          <div class="stat-value">{{ allBuildings.length }}</div>
+          <div class="stat-label">建筑总数</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">{{ getCategoryTypeCount('学术科研') }}</div>
+          <div class="stat-label">学术科研</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">{{ getCategoryTypeCount('生活服务') }}</div>
+          <div class="stat-label">生活服务</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">{{ getCategoryTypeCount('休闲娱乐') }}</div>
+          <div class="stat-label">休闲娱乐</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">{{ getCategoryTypeCount('交通设施') }}</div>
+          <div class="stat-label">交通设施</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">{{ getCategoryTypeCount('行政办公') }}</div>
+          <div class="stat-label">行政办公</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 使用国内CDN镜像 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-amap@0.5.10/dist/index.js"></script>
+
+    <script>
+      Vue.use(VueAMap)
+
+      VueAMap.initAMapApiLoader({
+        key: '160cab8ad6c50752175d76e61ef92c50',
+        plugin: ['Scale', 'ToolBar', 'MapType', 'AMap.Walking'],
+        v: '1.4.6',
+      })
+
+      new Vue({
+        el: '#app',
+        data() {
+          return {
+            center: [121.215, 31.2855],
+            zoom: 16,
+            searchQuery: '',
+            currentCoords: null,
+            selectedBuilding: null,
+            infoWindowOpen: false,
+            sidebarCollapsed: false,
+            currentZoom: 16,
+            minZoomForMarkers: 16,
+            plugins: ['Scale', 'ToolBar', 'MapType'],
+            navStart: '',
+            navEnd: '',
+            routeInfo: null,
+            walking: null,
+            routePolyline: null,
+            pickingStart: false,
+            pickingEnd: false,
+            customStart: null,
+            customEnd: null,
+            startMarker: null,
+            endMarker: null,
+            // 路线收藏相关
+            favoriteRoutes: [],
+            isRouteFavorited: false,
+            isSavingRoute: false,
+            currentRouteId: null,
+            // 别称输入弹窗
+            showAliasDialog: false,
+            aliasInput: '',
+            aliasType: '', // 'start' 或 'end'
+            startAlias: '',
+            endAlias: '',
+            // 路线分享
+            isGeneratingImage: false,
+            // 图层筛选相关
+            layerFilterVisible: false,
+            activeCategories: ['学术科研', '生活服务', '休闲娱乐', '交通设施', '行政办公'],
+            categoryDefinitions: [
+              { id: '学术科研', name: '学术科研', icon: '📚', color: '#5368df' },
+              { id: '生活服务', name: '生活服务', icon: '🍽️', color: '#34c759' },
+              { id: '休闲娱乐', name: '休闲娱乐', icon: '⚽', color: '#ff9500' },
+              { id: '交通设施', name: '交通设施', icon: '🚌', color: '#007aff' },
+              { id: '行政办公', name: '行政办公', icon: '🏢', color: '#8e8e93' },
+            ],
+            // 建筑数据将从后端动态加载，不再写死在前端
+            buildings: [],
+            copyMessage: '',
+            messageType: 'info',
+            favorites: [],
+            isFetchingBuildings: false,
+
+            mapEvents: {
+              mousemove: (e) => {
+                this.currentCoords = {
+                  lng: e.lnglat.lng.toFixed(6),
+                  lat: e.lnglat.lat.toFixed(6),
+                }
+              },
+              click: (e) => {
+                console.log('点击位置 - 经度:', e.lnglat.lng, '纬度:', e.lnglat.lat)
+
+                // 处理地图选点
+                if (this.pickingStart) {
+                  this.setCustomStart(e.lnglat)
+                } else if (this.pickingEnd) {
+                  this.setCustomEnd(e.lnglat)
+                }
+              },
+              zoomchange: () => {
+                const map = this.$refs.map.$amap
+                if (map) {
+                  this.currentZoom = map.getZoom()
+                }
+              },
+            },
+          }
+        },
+        mounted() {
+          window.addEventListener('keydown', this.handleKeyPress)
+          window.addEventListener('message', this.handleParentMessage)
+          if (window.parent !== window) {
+            window.parent.postMessage({ type: 'REQUEST_FAVORITES' }, '*')
+          } else {
+            this.loadFavoritesFallback()
+          }
+
+          // 从后端同步建筑名称，保持与 Wiki 一致
+          this.fetchBuildingNames()
+          
+          // 从后端加载建筑数据
+          this.loadBuildingsFromBackend()
+          
+          // 加载收藏路线
+          this.loadFavoriteRoutes()
+          
+          // 检查是否有需要加载的路线（从 MyRoutes 页面跳转过来）
+          this.checkAndLoadRouteFromSession()
+        },
+        beforeDestroy() {
+          window.removeEventListener('keydown', this.handleKeyPress)
+          window.removeEventListener('message', this.handleParentMessage)
+        },
+
+        computed: {
+          allBuildings() {
+            return this.buildings
+          },
+          // 筛选后的建筑列表（根据图层选择）
+          filteredBuildings() {
+            return this.buildings.filter(building => {
+              const categories = this.getBuildingCategories(building)
+              // 如果建筑的任何一个类别在激活列表中，就显示
+              return categories.some(cat => this.activeCategories.includes(cat))
+            })
+          },
+          buildingCategories() {
+            const categories = {}
+            this.buildings.forEach((building) => {
+              // 使用 category 字段而不是 type，与图层筛选保持一致
+              const category = building.category || '学术科研'
+              if (!categories[category]) {
+                categories[category] = []
+              }
+              categories[category].push(building)
+            })
+            return Object.keys(categories).map((name) => ({
+              name,
+              buildings: categories[name],
+            }))
+          },
+          filteredCategories() {
+            if (!this.searchQuery) return this.buildingCategories
+            const query = this.searchQuery.toLowerCase()
+            return this.buildingCategories
+              .map((cat) => ({
+                name: cat.name,
+                buildings: cat.buildings.filter(
+                  (b) =>
+                    b.name.toLowerCase().includes(query) ||
+                    b.description.toLowerCase().includes(query),
+                ),
+              }))
+              .filter((cat) => cat.buildings.length > 0)
+          },
+        },
+
+        methods: {
+          // 从后端加载建筑数据
+          async loadBuildingsFromBackend() {
+            try {
+              console.log('📡 开始从后端加载建筑数据...')
+              const response = await fetch('/api/location/map-buildings')
+              
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`)
+              }
+              
+              const data = await response.json()
+              console.log(`✅ 成功加载 ${data.total} 个建筑数据`, data.buildings)
+
+              // 将后端的 type 字段映射为前端统一使用的 category 字段
+              const mappedBuildings = (data.buildings || []).map((building) => {
+                // 后端返回的 type 示例："学术科研"、"生活服务"
+                const type = building.type
+                let category = '学术科研'
+
+                // 映射规则：
+                // - 学术科研：教学楼、图书馆、学院等
+                // - 生活服务：生活相关、医疗设施等
+                // - 休闲娱乐：体育、艺术等（当前数据中暂未使用）
+                // - 交通设施：校门等（当前数据中暂未使用）
+                // - 行政办公：综合服务、行政楼等（当前数据中暂未使用）
+                if (type === '学术科研') {
+                  category = '学术科研'
+                } else if (type === '生活服务' || type === '医疗设施') {
+                  category = '生活服务'
+                } else if (type === '体育设施') {
+                  category = '休闲娱乐'
+                } else if (type === '校门') {
+                  category = '交通设施'
+                } else if (type === '综合服务' || type === '行政办公') {
+                  category = '行政办公'
+                }
+
+                const mapped = {
+                  ...building,
+                  category,
+                }
+
+                console.log(`🏛️ ${mapped.name}: type = "${type}", category = "${mapped.category}"`)
+                return mapped
+              })
+
+              // 更新 buildings 数据（保证每个建筑都有唯一的 category）
+              this.buildings = mappedBuildings
+              
+              // 不自动选中建筑，由用户手动点击
+            } catch (error) {
+              console.error('❌ 加载建筑数据失败:', error)
+              // 如果加载失败，使用空数据，不使用写死的数据
+              this.buildings = []
+            }
+          },
+          
+          // 根据建筑的 category 字段获取类别
+          getBuildingCategories(building) {
+            // 直接使用数据中的 category 字段
+            // 每个建筑只有一个类别标签
+            if (building.category) {
+              return [building.category]
+            }
+            
+            // 如果没有 category 字段，默认返回学术科研
+            return ['学术科研']
+          },
+          // 切换图层筛选面板
+          toggleLayerFilter() {
+            this.layerFilterVisible = !this.layerFilterVisible
+          },
+          // 切换侧边栏显示/隐藏
+          toggleSidebar() {
+            this.sidebarCollapsed = !this.sidebarCollapsed
+          },
+          // 切换类别选择
+          toggleCategory(categoryId) {
+            const index = this.activeCategories.indexOf(categoryId)
+            if (index > -1) {
+              // 如果已选中，则取消选中
+              this.activeCategories.splice(index, 1)
+            } else {
+              // 如果未选中，则添加
+              this.activeCategories.push(categoryId)
+            }
+          },
+          // 全选
+          selectAllCategories() {
+            this.activeCategories = this.categoryDefinitions.map(c => c.id)
+          },
+          // 全不选
+          deselectAllCategories() {
+            this.activeCategories = []
+          },
+          async fetchBuildingNames() {
+            // 从后端拉取建筑列表，覆盖本地的名称/描述/地址
+            try {
+              this.isFetchingBuildings = true
+              const response = await fetch('/api/location/wiki-list')
+              if (!response.ok) {
+                throw new Error('加载建筑列表失败')
+              }
+              const data = await response.json()
+              const wikiMap = {}
+              ;(data?.items || []).forEach((item) => {
+                const id = Number(item.buildingId ?? item.wikiId)
+                if (!Number.isNaN(id)) {
+                  wikiMap[id] = {
+                    name: item.name,          // 仅同步名称
+                    address: item.address,    // 以及所属区域/地址
+                  }
+                }
+              })
+
+              this.buildings = this.buildings.map((building) => {
+                const wiki = wikiMap[building.id]
+                if (!wiki) return building
+                return {
+                  ...building,
+                  name: wiki.name || building.name,
+                  // 不再覆盖描述，避免将富文本/长文显示在侧栏
+                  address: wiki.address || building.address,
+                }
+              })
+            } catch (error) {
+              console.error('加载建筑名称失败:', error)
+              this.showMessage('建筑名称加载失败，已使用本地名称', 'warning')
+            } finally {
+              this.isFetchingBuildings = false
+            }
+          },
+          getAuthToken() {
+            // 尝试多种 token 存储方式
+            return localStorage.getItem('token') || localStorage.getItem('user_token') || sessionStorage.getItem('token')
+          },
+          parsePosition(position) {
+            // 解析坐标：支持数组、JSON字符串、null
+            if (!position) return null
+            if (Array.isArray(position)) return position
+            if (typeof position === 'string') {
+              try {
+                const parsed = JSON.parse(position)
+                return Array.isArray(parsed) ? parsed : null
+              } catch (e) {
+                console.error('解析坐标失败:', position, e)
+                return null
+              }
+            }
+            return null
+          },
+          handleParentMessage(event) {
+            if (!event.data) return
+            if (event.data.type === 'FAVORITES_DATA') {
+              this.favorites = Array.isArray(event.data.favorites) ? event.data.favorites : []
+              localStorage.setItem('favorites', JSON.stringify(this.favorites))
+            } else if (event.data.type === 'FAVORITE_RESULT') {
+              if (event.data.success) {
+                // 更新本地 favorites 数组
+                const buildingId = event.data.buildingId
+                if (event.data.action === 'added') {
+                  // 添加收藏
+                  if (!this.favorites.includes(buildingId)) {
+                    this.favorites.push(buildingId)
+                  }
+                } else if (event.data.action === 'removed') {
+                  // 取消收藏
+                  this.favorites = this.favorites.filter(id => id !== buildingId)
+                }
+                // 保存到 localStorage
+                localStorage.setItem('favorites', JSON.stringify(this.favorites))
+                
+                this.showMessage(
+                  event.data.action === 'removed' ? '已取消收藏' : '已收藏成功',
+                  'success',
+                )
+              } else if (event.data.message) {
+                this.showMessage(event.data.message, 'error')
+              }
+            }
+          },
+          loadFavoritesFallback() {
+            const savedFavorites = localStorage.getItem('favorites')
+            this.favorites = savedFavorites ? JSON.parse(savedFavorites) : []
+          },
+          getCategoryCount(type) {
+            return this.buildings.filter((b) => b.type === type).length
+          },
+          // 统计新类别的建筑数量
+          getCategoryTypeCount(categoryType) {
+            return this.buildings.filter(building => {
+              const categories = this.getBuildingCategories(building)
+              return categories.includes(categoryType)
+            }).length
+          },
+          focusBuilding(building) {
+            this.center = building.position
+            this.zoom = 18
+            this.showBuildingInfo(building)
+          },
+          focusBuildingById(buildingId) {
+            const building = this.buildings.find((b) => b.id === buildingId)
+            if (building) {
+              this.focusBuilding(building)
+            }
+          },
+          navigateToWiki(buildingId) {
+            // 对于收藏的建筑，跳转到 Wiki 详情页
+            if (window.parent !== window) {
+              window.parent.postMessage(
+                {
+                  type: 'NAVIGATE_TO_LOCATION',
+                  locationId: buildingId,
+                },
+                '*',
+              )
+            }
+          },
+          getBuildingName(buildingId) {
+            // Building ID = Wiki ID，直接从 buildings 数组查找即可
+            const building = this.buildings.find((b) => b.id === buildingId)
+            return building ? building.name : '未知建筑'
+          },
+          getBuildingDesc(buildingId) {
+            // Building ID = Wiki ID，直接从 buildings 数组查找即可
+            const building = this.buildings.find((b) => b.id === buildingId)
+            return building ? building.description : ''
+          },
+          getBuildingAddress(buildingId) {
+            const building = this.buildings.find((b) => b.id === buildingId)
+            return building?.address || '未知区域'
+          },
+          showBuildingInfo(building) {
+            // 如果正在选点模式，将建筑设置为起点或终点，不跳转
+            if (this.pickingStart) {
+              this.navStart = String(building.id)
+              this.pickingStart = false
+              
+              // 创建起点标记
+              const map = this.$refs.map.$amap
+              if (map) {
+                // 移除旧标记
+                if (this.startMarker) {
+                  map.remove(this.startMarker)
+                }
+                // 创建新标记
+                this.startMarker = new AMap.Marker({
+                  position: building.position,
+                  title: '起点',
+                  icon: new AMap.Icon({
+                    size: new AMap.Size(25, 34),
+                    image: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-red.png',
+                    imageSize: new AMap.Size(25, 34),
+                  }),
+                })
+                map.add(this.startMarker)
+              }
+              
+              this.showMessage(`已选择起点：${building.name}`, 'success')
+              return
+            }
+            
+            if (this.pickingEnd) {
+              this.navEnd = String(building.id)
+              this.pickingEnd = false
+              
+              // 创建终点标记
+              const map = this.$refs.map.$amap
+              if (map) {
+                // 移除旧标记
+                if (this.endMarker) {
+                  map.remove(this.endMarker)
+                }
+                // 创建新标记
+                this.endMarker = new AMap.Marker({
+                  position: building.position,
+                  title: '终点',
+                  icon: new AMap.Icon({
+                    size: new AMap.Size(25, 34),
+                    image: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
+                    imageSize: new AMap.Size(25, 34),
+                  }),
+                })
+                map.add(this.endMarker)
+              }
+              
+              this.showMessage(`已选择终点：${building.name}`, 'success')
+              return
+            }
+
+            // 正常模式：所有建筑都有 Wiki 页面，Building ID = Wiki ID
+            // 图书馆直接跳转，不显示信息窗口
+            if (building.id === 10) {
+              if (window.parent !== window) {
+                window.parent.postMessage(
+                  {
+                    type: 'NAVIGATE_TO_LOCATION',
+                    locationId: building.id,
+                  },
+                  '*',
+                )
+              }
+              return
+            }
+
+            // 其他建筑显示信息窗口
+            this.selectedBuilding = building
+            this.infoWindowOpen = true
+
+            // 所有建筑都触发路由跳转到对应的 Wiki 页面
+            if (window.parent !== window) {
+              window.parent.postMessage(
+                {
+                  type: 'NAVIGATE_TO_LOCATION',
+                  locationId: building.id,
+                },
+                '*',
+              )
+            }
+          },
+          closeInfo() {
+            this.selectedBuilding = null
+            this.infoWindowOpen = false
+          },
+          formatInfoContent(building) {
+            const isFavorited = this.favorites.includes(building.id)
+            const heartIcon = isFavorited ? '❤️' : '🤍'
+            const favoriteText = isFavorited ? '已收藏' : '收藏'
+
+            return `<div style="padding: 15px; min-width: 250px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <h3 style="margin: 0; color: #252b46; font-size: 18px;">${this.getBuildingName(building.id)}</h3>
+                            <button 
+                                onclick="window.toggleFavorite(${building.id})" 
+                                style="background: none; border: none; cursor: pointer; font-size: 24px; padding: 0; line-height: 1;"
+                                title="${favoriteText}">
+                                ${heartIcon}
+                            </button>
+                        </div>
+                        <p style="margin: 8px 0; color: #666;"><strong>类型：</strong>${building.type}</p>
+                        <p style="margin: 8px 0; color: #666;"><strong>开放时间：</strong>${building.openTime}</p>
+                        <p style="margin: 8px 0; color: #666;"><strong>地址：</strong>${building.address}</p>
+                    </div>`
+          },
+          handleKeyPress(e) {
+            if ((e.key === 'c' || e.key === 'C') && this.currentCoords) {
+              const coordText = `[${this.currentCoords.lng}, ${this.currentCoords.lat}]`
+
+              navigator.clipboard
+                .writeText(coordText)
+                .then(() => {
+                  this.showMessage('已复制: ' + coordText, 'success')
+                })
+                .catch((err) => {
+                  console.error('复制失败:', err)
+                  this.showMessage('复制失败', 'error')
+                })
+            }
+          },
+          togglePickStart() {
+            this.pickingStart = !this.pickingStart
+            if (this.pickingStart) {
+              this.pickingEnd = false
+            }
+          },
+          togglePickEnd() {
+            this.pickingEnd = !this.pickingEnd
+            if (this.pickingEnd) {
+              this.pickingStart = false
+            }
+          },
+          setCustomStart(lnglat) {
+            const map = this.$refs.map.$amap
+
+            // 移除旧标记
+            if (this.startMarker) {
+              map.remove(this.startMarker)
+            }
+
+            // 创建新标记
+            this.startMarker = new AMap.Marker({
+              position: [lnglat.lng, lnglat.lat],
+              title: '起点',
+              icon: new AMap.Icon({
+                size: new AMap.Size(25, 34),
+                image: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-red.png',
+                imageSize: new AMap.Size(25, 34),
+              }),
+            })
+            map.add(this.startMarker)
+
+            this.customStart = [lnglat.lng, lnglat.lat]
+            this.navStart = 'custom_start'
+            this.pickingStart = false
+          },
+          setCustomEnd(lnglat) {
+            const map = this.$refs.map.$amap
+
+            // 移除旧标记
+            if (this.endMarker) {
+              map.remove(this.endMarker)
+            }
+
+            // 创建新标记
+            this.endMarker = new AMap.Marker({
+              position: [lnglat.lng, lnglat.lat],
+              title: '终点',
+              icon: new AMap.Icon({
+                size: new AMap.Size(25, 34),
+                image: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
+                imageSize: new AMap.Size(25, 34),
+              }),
+            })
+            map.add(this.endMarker)
+
+            this.customEnd = [lnglat.lng, lnglat.lat]
+            this.navEnd = 'custom_end'
+            this.pickingEnd = false
+          },
+          planRoute() {
+            if (!this.navStart || !this.navEnd) {
+              this.showMessage('请选择起点和终点', 'warning')
+              return
+            }
+
+            if (
+              this.navStart === this.navEnd &&
+              this.navStart !== 'custom_start' &&
+              this.navEnd !== 'custom_end'
+            ) {
+              this.showMessage('起点和终点不能相同', 'warning')
+              return
+            }
+
+            let startPos, endPos
+
+            // 获取起点坐标
+            if (this.navStart === 'custom_start') {
+              startPos = this.customStart
+            } else {
+              const startBuilding = this.buildings.find((b) => b.id === parseInt(this.navStart))
+              if (!startBuilding) {
+                this.showMessage('起点信息错误', 'error')
+                return
+              }
+              startPos = startBuilding.position
+            }
+
+            // 获取终点坐标
+            if (this.navEnd === 'custom_end') {
+              endPos = this.customEnd
+            } else {
+              const endBuilding = this.buildings.find((b) => b.id === parseInt(this.navEnd))
+              if (!endBuilding) {
+                this.showMessage('终点信息错误', 'error')
+                return
+              }
+              endPos = endBuilding.position
+            }
+
+            // 清除之前的路线（但保留自定义标记）
+            if (this.walking) {
+              this.walking.clear()
+            }
+            this.routeInfo = null
+
+            // 确保 walking 已初始化
+            const map = this.$refs.map.$amap
+            if (!map) {
+              this.showMessage('地图未加载完成，请稍后再试', 'error')
+              return
+            }
+
+            if (!this.walking) {
+              // 同步初始化 Walking
+              this.walking = new AMap.Walking({
+                map: map,
+              })
+            }
+
+            // 再次检查
+            if (!this.walking) {
+              this.showMessage('导航功能初始化失败，请刷新页面重试', 'error')
+              return
+            }
+
+            console.log('开始规划路线:', startPos, '->', endPos)
+
+            // 规划步行路线
+            this.walking.search(startPos, endPos, (status, result) => {
+              console.log('路线规划结果:', status, result)
+              if (status === 'complete') {
+                if (result.routes && result.routes.length > 0) {
+                  const route = result.routes[0]
+                  const distance = route.distance
+                  const walkTime = route.time  // 步行时间（秒）
+                  
+                  // 计算骑行时间
+                  // 假设：步行速度 5 km/h，骑行速度 15 km/h
+                  // 骑行时间 = 步行时间 × (5/15) = 步行时间 × (1/3)
+                  const bikeTime = Math.ceil(walkTime / 3)
+
+                  this.routeInfo = {
+                    distance:
+                      distance >= 1000 ? (distance / 1000).toFixed(2) + ' 公里' : distance + ' 米',
+                    walkTime: walkTime >= 60 ? Math.ceil(walkTime / 60) + ' 分钟' : walkTime + ' 秒',
+                    bikeTime: bikeTime >= 60 ? Math.ceil(bikeTime / 60) + ' 分钟' : bikeTime + ' 秒',
+                  }
+
+                  this.showMessage('路线规划成功！', 'success')
+                  console.log('路线规划成功:', this.routeInfo)
+                  
+                  // 检查这条路线是否已经被收藏
+                  this.checkIfRouteFavorited()
+                }
+              } else {
+                this.showMessage('路线规划失败，请重试', 'error')
+                console.error('路线规划失败:', status, result)
+              }
+            })
+          },
+          clearRoute() {
+            const map = this.$refs.map.$amap
+
+            // 清除路线
+            if (this.walking) {
+              this.walking.clear()
+            }
+
+            // 清除自定义标记
+            if (this.startMarker) {
+              map.remove(this.startMarker)
+              this.startMarker = null
+            }
+            if (this.endMarker) {
+              map.remove(this.endMarker)
+              this.endMarker = null
+            }
+
+            this.routeInfo = null
+            this.navStart = ''
+            this.navEnd = ''
+            this.customStart = null
+            this.customEnd = null
+            this.pickingStart = false
+            this.pickingEnd = false
+
+            this.showMessage('路线已清除', 'info')
+            
+            // 清除路线收藏状态
+            this.isRouteFavorited = false
+            this.currentRouteId = null
+          },
+          checkAndLoadRouteFromSession() {
+            try {
+              const routeData = sessionStorage.getItem('loadRoute')
+              if (!routeData) return
+              
+              const route = JSON.parse(routeData)
+              console.log('检测到需要加载的路线:', route)
+              
+              // 清除 sessionStorage
+              sessionStorage.removeItem('loadRoute')
+              
+              // 等待建筑数据加载完成后再加载路线
+              const loadInterval = setInterval(() => {
+                if (this.buildings.length > 0) {
+                  clearInterval(loadInterval)
+                  this.loadRouteFromData(route)
+                }
+              }, 100)
+              
+              // 超时保护（5秒）
+              setTimeout(() => {
+                clearInterval(loadInterval)
+                if (this.buildings.length === 0) {
+                  this.showMessage('建筑数据加载失败，无法加载路线', 'error')
+                }
+              }, 5000)
+            } catch (error) {
+              console.error('加载路线失败:', error)
+              this.showMessage('加载路线失败', 'error')
+            }
+          },
+          loadRouteFromData(route) {
+            console.log('开始加载路线:', route)
+            
+            // 设置起点
+            if (route.startId) {
+              this.navStart = String(route.startId)
+            } else if (route.startPosition) {
+              // 自定义起点
+              this.customStart = route.startPosition
+              this.navStart = 'custom_start'
+              
+              // 创建自定义起点标记
+              const map = this.$refs.map.$amap
+              if (map && !this.startMarker) {
+                this.startMarker = new AMap.Marker({
+                  position: route.startPosition,
+                  title: '起点',
+                  icon: new AMap.Icon({
+                    size: new AMap.Size(25, 34),
+                    image: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-red.png',
+                    imageSize: new AMap.Size(25, 34),
+                  }),
+                })
+                map.add(this.startMarker)
+              }
+            }
+            
+            // 设置终点
+            if (route.endId) {
+              this.navEnd = String(route.endId)
+            } else if (route.endPosition) {
+              // 自定义终点
+              this.customEnd = route.endPosition
+              this.navEnd = 'custom_end'
+              
+              // 创建自定义终点标记
+              const map = this.$refs.map.$amap
+              if (map && !this.endMarker) {
+                this.endMarker = new AMap.Marker({
+                  position: route.endPosition,
+                  title: '终点',
+                  icon: new AMap.Icon({
+                    size: new AMap.Size(25, 34),
+                    image: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
+                    imageSize: new AMap.Size(25, 34),
+                  }),
+                })
+                map.add(this.endMarker)
+              }
+            }
+            
+            // 稍微延迟后规划路线，确保 DOM 更新
+            setTimeout(() => {
+              this.planRoute()
+              this.showMessage(`已加载路线${route.name ? ': ' + route.name : ''}`, 'success')
+            }, 300)
+          },
+          async toggleRouteFavorite() {
+            if (!this.routeInfo) return
+            
+            const token = this.getAuthToken()
+            if (!token) {
+              this.showMessage('请先登录', 'warning')
+              // 如果在 iframe 中，尝试跳转到登录页
+              if (window.parent !== window) {
+                window.parent.postMessage({ type: 'NAVIGATE_TO_LOGIN' }, '*')
+              }
+              return
+            }
+            
+            this.isSavingRoute = true
+            
+            try {
+              if (this.isRouteFavorited && this.currentRouteId) {
+                // 取消收藏
+                const response = await fetch(`/api/routes/${this.currentRouteId}`, {
+                  method: 'DELETE',
+                  headers: {
+                    'Authorization': `Bearer ${token}`
+                  }
+                })
+                
+                if (response.ok) {
+                  this.showMessage('已取消收藏路线', 'success')
+                  // 重新加载收藏列表，然后检查状态
+                  await this.loadFavoriteRoutes()
+                  this.checkIfRouteFavorited()
+                } else {
+                  throw new Error('取消收藏失败')
+                }
+              } else {
+                // 添加收藏
+                // 检查是否有自定义点
+                const hasCustomStart = this.navStart === 'custom_start'
+                const hasCustomEnd = this.navEnd === 'custom_end'
+                
+                if (hasCustomStart || hasCustomEnd) {
+                  // 有自定义点，显示别称输入弹窗
+                  this.isSavingRoute = false
+                  this.startAlias = ''
+                  this.endAlias = ''
+                  
+                  // 先为起点输入别称（如果起点是自定义点）
+                  if (hasCustomStart) {
+                    this.aliasType = 'start'
+                    this.aliasInput = ''
+                    this.showAliasDialog = true
+                  } else {
+                    // 起点不是自定义点，直接为终点输入别称
+                    this.aliasType = 'end'
+                    this.aliasInput = ''
+                    this.showAliasDialog = true
+                  }
+                  return
+                }
+                
+                // 没有自定义点，直接收藏
+                const startName = this.getBuildingName(parseInt(this.navStart))
+                const endName = this.getBuildingName(parseInt(this.navEnd))
+                
+                const routeData = {
+                  startId: this.navStart === 'custom_start' ? null : parseInt(this.navStart),
+                  endId: this.navEnd === 'custom_end' ? null : parseInt(this.navEnd),
+                  startName: startName,
+                  endName: endName,
+                  startPosition: this.navStart === 'custom_start' ? this.customStart : null,
+                  endPosition: this.navEnd === 'custom_end' ? this.customEnd : null,
+                  distance: this.routeInfo.distance,
+                  walkTime: this.routeInfo.walkTime,
+                  bikeTime: this.routeInfo.bikeTime
+                }
+                
+                const response = await fetch('/api/routes', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                  },
+                  body: JSON.stringify(routeData)
+                })
+                
+                if (response.ok) {
+                  const data = await response.json()
+                  this.showMessage('路线收藏成功', 'success')
+                  // 重新加载收藏列表，然后检查状态
+                  await this.loadFavoriteRoutes()
+                  this.checkIfRouteFavorited()
+                } else {
+                  throw new Error('收藏失败')
+                }
+              }
+            } catch (error) {
+              console.error('路线收藏操作失败:', error)
+              this.showMessage(error.message || '操作失败，请稍后重试', 'error')
+            } finally {
+              this.isSavingRoute = false
+            }
+          },
+          async loadFavoriteRoutes() {
+            const token = this.getAuthToken()
+            if (!token) return
+            
+            try {
+              const response = await fetch('/api/routes', {
+                headers: {
+                  'Authorization': `Bearer ${token}`
+                }
+              })
+              
+              if (response.ok) {
+                const data = await response.json()
+                // 解析坐标 JSON 字符串
+                this.favoriteRoutes = (data.routes || []).map(route => {
+                  return {
+                    ...route,
+                    startPosition: this.parsePosition(route.startPosition),
+                    endPosition: this.parsePosition(route.endPosition)
+                  }
+                })
+                console.log('加载收藏路线:', this.favoriteRoutes)
+              }
+            } catch (error) {
+              console.error('加载收藏路线失败:', error)
+            }
+          },
+          async removeRouteFavorite(routeId) {
+            const token = this.getAuthToken()
+            if (!token) return
+            
+            try {
+              const response = await fetch(`/api/routes/${routeId}`, {
+                method: 'DELETE',
+                headers: {
+                  'Authorization': `Bearer ${token}`
+                }
+              })
+              
+              if (response.ok) {
+                this.showMessage('路线已删除', 'success')
+                this.loadFavoriteRoutes()
+                
+                // 如果删除的是当前路线
+                if (this.currentRouteId === routeId) {
+                  this.isRouteFavorited = false
+                  this.currentRouteId = null
+                }
+              }
+            } catch (error) {
+              console.error('删除路线失败:', error)
+              this.showMessage('删除失败', 'error')
+            }
+          },
+          loadFavoriteRoute(route) {
+            // 加载收藏的路线
+            if (route.startId) {
+              this.navStart = route.startId.toString()
+            } else if (route.startPosition) {
+              this.navStart = 'custom_start'
+              this.customStart = route.startPosition
+            }
+            
+            if (route.endId) {
+              this.navEnd = route.endId.toString()
+            } else if (route.endPosition) {
+              this.navEnd = 'custom_end'
+              this.customEnd = route.endPosition
+            }
+            
+            // 规划路线
+            this.planRoute()
+            
+            // 设置为已收藏
+            this.isRouteFavorited = true
+            this.currentRouteId = route.id
+          },
+          checkIfRouteFavorited() {
+            // 检查当前路线是否已经被收藏
+            if (!this.navStart || !this.navEnd || this.favoriteRoutes.length === 0) {
+              this.isRouteFavorited = false
+              this.currentRouteId = null
+              return
+            }
+            
+            const startId = this.navStart === 'custom_start' ? null : parseInt(this.navStart)
+            const endId = this.navEnd === 'custom_end' ? null : parseInt(this.navEnd)
+            const startName = this.navStart === 'custom_start' ? '自定义起点' : this.getBuildingName(parseInt(this.navStart))
+            const endName = this.navEnd === 'custom_end' ? '自定义终点' : this.getBuildingName(parseInt(this.navEnd))
+            
+            // 在收藏列表中查找匹配的路线
+            const matchedRoute = this.favoriteRoutes.find(route => {
+              // 匹配逻辑：起点和终点都相同
+              let startMatch = false
+              let endMatch = false
+              
+              // 起点匹配
+              if (startId !== null) {
+                // 建筑起点：比较 ID 和名称
+                startMatch = route.startId === startId && route.startName === startName
+              } else {
+                // 自定义起点：比较名称和坐标
+                if (route.startId === null && route.startName === startName) {
+                  // 比较坐标（允许小误差）
+                  if (this.customStart && route.startPosition) {
+                    const pos1 = this.customStart
+                    const pos2 = route.startPosition
+                    const distance = Math.sqrt(
+                      Math.pow(pos1[0] - pos2[0], 2) + Math.pow(pos1[1] - pos2[1], 2)
+                    )
+                    startMatch = distance < 0.0001 // 约 10 米误差
+                  }
+                }
+              }
+              
+              // 终点匹配
+              if (endId !== null) {
+                // 建筑终点：比较 ID 和名称
+                endMatch = route.endId === endId && route.endName === endName
+              } else {
+                // 自定义终点：比较名称和坐标
+                if (route.endId === null && route.endName === endName) {
+                  // 比较坐标（允许小误差）
+                  if (this.customEnd && route.endPosition) {
+                    const pos1 = this.customEnd
+                    const pos2 = route.endPosition
+                    const distance = Math.sqrt(
+                      Math.pow(pos1[0] - pos2[0], 2) + Math.pow(pos1[1] - pos2[1], 2)
+                    )
+                    endMatch = distance < 0.0001 // 约 10 米误差
+                  }
+                }
+              }
+              
+              return startMatch && endMatch
+            })
+            
+            if (matchedRoute) {
+              this.isRouteFavorited = true
+              this.currentRouteId = matchedRoute.id
+              console.log('当前路线已收藏:', matchedRoute)
+            } else {
+              this.isRouteFavorited = false
+              this.currentRouteId = null
+              console.log('当前路线未收藏')
+            }
+          },
+          closeAliasDialog() {
+            this.showAliasDialog = false
+            this.aliasInput = ''
+            this.aliasType = ''
+            this.startAlias = ''
+            this.endAlias = ''
+          },
+          async confirmAlias() {
+            const alias = this.aliasInput.trim()
+            if (!alias) return
+            
+            // 保存当前输入的别称
+            if (this.aliasType === 'start') {
+              this.startAlias = alias
+              
+              // 检查终点是否也是自定义点
+              if (this.navEnd === 'custom_end') {
+                // 终点也是自定义点，继续为终点输入别称
+                this.aliasType = 'end'
+                this.aliasInput = ''
+                // 不关闭弹窗，继续显示
+                return
+              }
+            } else if (this.aliasType === 'end') {
+              this.endAlias = alias
+            }
+            
+            // 关闭弹窗，开始保存
+            this.showAliasDialog = false
+            this.isSavingRoute = true
+            
+            try {
+              const token = this.getAuthToken()
+              
+              // 使用别称替换自定义点名称
+              const startName = this.navStart === 'custom_start' ? this.startAlias : this.getBuildingName(parseInt(this.navStart))
+              const endName = this.navEnd === 'custom_end' ? this.endAlias : this.getBuildingName(parseInt(this.navEnd))
+              
+              const routeData = {
+                startId: this.navStart === 'custom_start' ? null : parseInt(this.navStart),
+                endId: this.navEnd === 'custom_end' ? null : parseInt(this.navEnd),
+                startName: startName,
+                endName: endName,
+                startPosition: this.navStart === 'custom_start' ? this.customStart : null,
+                endPosition: this.navEnd === 'custom_end' ? this.customEnd : null,
+                distance: this.routeInfo.distance,
+                walkTime: this.routeInfo.walkTime,
+                bikeTime: this.routeInfo.bikeTime
+              }
+              
+              const response = await fetch('/api/routes', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(routeData)
+              })
+              
+              if (response.ok) {
+                this.showMessage('路线收藏成功', 'success')
+                await this.loadFavoriteRoutes()
+                this.checkIfRouteFavorited()
+              } else {
+                throw new Error('收藏失败')
+              }
+            } catch (error) {
+              console.error('路线收藏失败:', error)
+              this.showMessage(error.message || '收藏失败，请稍后重试', 'error')
+            } finally {
+              this.isSavingRoute = false
+              this.aliasInput = ''
+            }
+          },
+          async shareRoute() {
+            if (!this.routeInfo) return
+            
+            this.isGeneratingImage = true
+            
+            // 获取起点和终点名称
+            const startName = this.navStart === 'custom_start' 
+              ? '自定义起点' 
+              : this.getBuildingName(parseInt(this.navStart))
+            const endName = this.navEnd === 'custom_end' 
+              ? '自定义终点' 
+              : this.getBuildingName(parseInt(this.navEnd))
+            
+            // 生成分享文本
+            const shareText = `🗺️ 济图通路线分享\n\n📍 起点：${startName}\n🎯 终点：${endName}\n\n📍 距离：${this.routeInfo.distance}\n🚶 步行时间：${this.routeInfo.walkTime}\n🚴 骑行时间：${this.routeInfo.bikeTime}\n\n——————————\n同济大学嘉定校区地图导航`
+            
+            try {
+              // 尝试使用现代 Clipboard API
+              if (navigator.clipboard && navigator.clipboard.writeText) {
+                await navigator.clipboard.writeText(shareText)
+                this.showMessage('路线信息已复制到剪贴板', 'success')
+                console.log('✅ 路线信息已复制')
+              } else {
+                // 降级方案：使用 execCommand
+                throw new Error('Clipboard API not available')
+              }
+            } catch (error) {
+              console.error('复制路线信息失败:', error)
+              // 降级方案
+              try {
+                const textArea = document.createElement('textarea')
+                textArea.value = shareText
+                textArea.style.position = 'fixed'
+                textArea.style.left = '-999999px'
+                textArea.style.top = '0'
+                document.body.appendChild(textArea)
+                textArea.focus()
+                textArea.select()
+                const successful = document.execCommand('copy')
+                document.body.removeChild(textArea)
+                
+                if (successful) {
+                  this.showMessage('路线信息已复制到剪贴板', 'success')
+                  console.log('✅ 路线信息已复制（降级方案）')
+                } else {
+                  throw new Error('execCommand failed')
+                }
+              } catch (fallbackError) {
+                console.error('降级复制也失败:', fallbackError)
+                this.showMessage('复制失败，请稍后重试', 'error')
+              }
+            } finally {
+              this.isGeneratingImage = false
+            }
+          },
+          showMessage(message, type = 'info') {
+            // 使用现有的 copyMessage 机制显示消息
+            const icons = {
+              success: '✓',
+              error: '✗',
+              warning: '⚠',
+              info: 'ℹ',
+            }
+            this.messageType = type
+            this.copyMessage = `${icons[type] || 'ℹ'} ${message}`
+            setTimeout(() => {
+              this.copyMessage = ''
+              this.messageType = 'info'
+            }, 3000)
+          },
+          async toggleFavorite(buildingId) {
+            if (window.parent !== window) {
+              window.parent.postMessage({ type: 'TOGGLE_FAVORITE', buildingId }, '*')
+              return
+            }
+
+            const index = this.favorites.indexOf(buildingId)
+            const buildingName = this.getBuildingName(buildingId)
+            if (index > -1) {
+              this.favorites.splice(index, 1)
+              this.showMessage(`已取消收藏 ${buildingName}`, 'info')
+            } else {
+              this.favorites.push(buildingId)
+              this.showMessage(`已收藏 ${buildingName}`, 'success')
+            }
+            localStorage.setItem('favorites', JSON.stringify(this.favorites))
+          },
+        },
+      })
+
+      // 将 toggleFavorite 方法暴露到全局，供信息窗口中的按钮调用
+      window.toggleFavorite = function (buildingId) {
+        const app = document.querySelector('#app').__vue__
+        if (app && app.toggleFavorite) {
+          app.toggleFavorite(buildingId)
+        }
+      }
+    </script>
+  </body>
+</html>
+              

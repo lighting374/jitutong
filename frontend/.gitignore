@@ -1,0 +1,72 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+.DS_Store
+dist
+dist-ssr
+coverage
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+*.tsbuildinfo
+
+.eslintcache
+
+# Cypress
+/cypress/videos/
+/cypress/screenshots/
+
+# Vitest
+__screenshots__/
+
+# Map directory (not needed, using public/campus-map.html instead)
+map/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+.pytest_cache/
+*.db-journal
+*.db
+
+# Development documentation (not for commit)
+/*_GUIDE.md
+/*_FEATURE*.md
+/*_FIX*.md
+/*_SOLUTION.md
+/*_COMPLETE.md
+/*_TEST.md
+/*_DESCRIPTION.md
+/backend_integration_guide.md
+/frontend_debug_checklist.md
+
+# IDE and project-specific directories
+.cursor/
+.kiro/
+
+# Legacy/unused code directories
+houduan/
+map/jitutong_1028/
